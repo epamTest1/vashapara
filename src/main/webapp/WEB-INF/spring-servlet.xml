@@ -18,7 +18,7 @@
 	<mvc:resources mapping="favicon.ico" location="/favicon.ico" />
 
 	<!-- Use @Component annotations for bean definitions -->
-	<!-- <context:component-scan base-package="eao" /> -->
+	<context:component-scan base-package="com.couple.controllers" />
 
 	<!-- Use @Controller annotations for MVC controller definitions -->
 	<mvc:annotation-driven />
