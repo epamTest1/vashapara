@@ -3998,8 +3998,8 @@ a.thumbnail:hover {
  * Designed and built with all the love in the world @twitter by @mdo and @fat.
  */
 .hidden {
-	display: none;
-	visibility: hidden;
+	display: none !important;
+	visibility: hidden !important;
 }
 .visible-phone {
 	display: none;
