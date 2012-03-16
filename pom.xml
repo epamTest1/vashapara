@@ -1,11 +1,9 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-	
-	<modelVersion>4.0.0</modelVersion>
-	
-	<groupId>com.vk.quiz</groupId>
-	<artifactId>couple</artifactId>
-	<packaging>war</packaging>
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.couple</groupId>
+  <artifactId>vashapara</artifactId>
+  <packaging>war</packaging>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>Couple VK Quiz</name>
 
@@ -111,13 +109,13 @@
 			<plugin>
 				<groupId>com.jelastic</groupId>
 				<artifactId>jelastic-maven-plugin</artifactId>
-				<version>1.6</version>
+				<version>1.7-SNAPSHOT</version>
 				<configuration>
 					<email>${jelastic.username}</email>
 					<password>${jelastic.password}</password>
 					<context>ROOT</context>
-					<environment>couplequiz</environment>
-					<api_hoster>app.jelastic.servint.net</api_hoster>
+					<environment>vashapara</environment>
+					<api_hoster>app.jelastic.com</api_hoster>
 				</configuration>
 			</plugin>
 			<plugin>
