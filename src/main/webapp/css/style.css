@@ -1,5 +1,5 @@
-::-moz-selection { background: #fe57a1; color: #fff; text-shadow: none; }
-::selection { background: #fe57a1; color: #fff; text-shadow: none; }
+::-moz-selection { background: #45688E; color: #fff; text-shadow: none; }
+::selection { background: #45688E; color: #fff; text-shadow: none; }
 
 svg:not(:root) { overflow: hidden; }
 figure { margin: 0; }
@@ -10,8 +10,14 @@ figure { margin: 0; }
 	 Author:
 	 ========================================================================== */
 
+.main {
+	margin: 18px auto 0;
+	float: none;
+}
 
-
+.user-name {
+	text-align: center;
+}
 
 
 
