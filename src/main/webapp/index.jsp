@@ -1,3 +1,5 @@
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+
 <!doctype html>
 <!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"><![endif]-->
 <!--[if IE 7]><html class="no-js lt-ie9 lt-ie8" lang="en"><![endif]-->
@@ -8,7 +10,7 @@
 
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-<title>Ваша пара</title>
+<title>ÐÐ°ÑÐ° Ð¿Ð°ÑÐ°</title>
 
 <meta name="description" content="">
 
@@ -28,50 +30,50 @@
 
 	<ul class="thumbnails">
 		<li class="span2">
-			<h2 class="user-name">Ваня</h2>
+			<h2 class="user-name">ÐÐ°Ð½Ñ</h2>
 			<a href="#" class="thumbnail">
-				<img src="http://placehold.it/200x260" alt="Ваня">
+				<img src="http://placehold.it/200x260" alt="ÐÐ°Ð½Ñ">
 			</a>
 		</li>
 
 		<li class="span4"></li>
 
 		<li class="span2">
-			<h2 class="user-name">Витя</h2>
+			<h2 class="user-name">ÐÐ¸ÑÑ</h2>
 			<a href="#" class="thumbnail">
-				<img src="http://placehold.it/200x260" alt="Аня">
+				<img src="http://placehold.it/200x260" alt="ÐÐ½Ñ">
 			</a>
 		</li>
 	</ul>
 
 	<div class="tabbable tabs-right row">
 		<ul class="nav nav-tabs span2">
-			<li class="active hidden"><a href="#section-0" data-toggle="tab">Дом</a></li>
-			<li class="hidden"><a href="#section-1" data-toggle="tab">Дети</a></li>
-			<li class="hidden"><a href="#section-2" data-toggle="tab">Финансы</a></li>
+			<li class="active hidden"><a href="#section-0" data-toggle="tab">ÐÐ¾Ð¼</a></li>
+			<li class="hidden"><a href="#section-1" data-toggle="tab">ÐÐµÑÐ¸</a></li>
+			<li class="hidden"><a href="#section-2" data-toggle="tab">Ð¤Ð¸Ð½Ð°Ð½ÑÑ</a></li>
 		</ul>
 		<div class="tab-content span8">
 			<div id="section-0" class="tab-pane active">
 				<form class="form-horizontal">
 					<fieldset>
-						<legend>Варианты</legend>
+						<legend>ÐÐ°ÑÐ¸Ð°Ð½ÑÑ</legend>
 						<div class="control-group">
-							<div class="control-label">Убираю в квартире</div>
+							<div class="control-label">Ð£Ð±Ð¸ÑÐ°Ñ Ð² ÐºÐ²Ð°ÑÑÐ¸ÑÐµ</div>
 							<div class="controls">
 								<div class="btn-group" data-toggle="buttons-radio">
-									<label class="btn btn-info" for="option-always-0">Всегда
+									<label class="btn btn-info" for="option-always-0">ÐÑÐµÐ³Ð´Ð°
 										<input id="option-always-0" class="hidden" name="option-0" type="radio">
 									</label>
-									<label class="btn btn-info" for="option-often-0">Часто
+									<label class="btn btn-info" for="option-often-0">Ð§Ð°ÑÑÐ¾
 										<input id="option-often-0" class="hidden" name="option-0" type="radio">
 									</label>
-									<label class="btn btn-info" for="option-equally-0">Поровну
+									<label class="btn btn-info" for="option-equally-0">ÐÐ¾ÑÐ¾Ð²Ð½Ñ
 										<input id="option-equally-0" class="hidden" name="option-0" type="radio">
 									</label>
-									<label class="btn btn-info" for="option-sometimes-0">Иногда
+									<label class="btn btn-info" for="option-sometimes-0">ÐÐ½Ð¾Ð³Ð´Ð°
 										<input id="option-sometimes-0" class="hidden" name="option-0" type="radio">
 									</label>
-									<label class="btn btn-info" for="option-never-0">Никогда
+									<label class="btn btn-info" for="option-never-0">ÐÐ¸ÐºÐ¾Ð³Ð´Ð°
 										<input id="option-never-0" class="hidden" name="option-0" type="radio">
 									</label>
 								</div>
@@ -79,22 +81,22 @@
 						</div><!-- /.control-group -->
 
 						<div class="control-group">
-							<div class="control-label">Мою посуду</div>
+							<div class="control-label">ÐÐ¾Ñ Ð¿Ð¾ÑÑÐ´Ñ</div>
 							<div class="controls">
 								<div class="btn-group" data-toggle="buttons-radio">
-									<label class="btn btn-info" for="option-always-1">Всегда
+									<label class="btn btn-info" for="option-always-1">ÐÑÐµÐ³Ð´Ð°
 										<input id="option-always-1" class="hidden" name="option-1" type="radio">
 									</label>
-									<label class="btn btn-info" for="option-often-1">Часто
+									<label class="btn btn-info" for="option-often-1">Ð§Ð°ÑÑÐ¾
 										<input id="option-often-1" class="hidden" name="option-1" type="radio">
 									</label>
-									<label class="btn btn-info" for="option-equally-1">Поровну
+									<label class="btn btn-info" for="option-equally-1">ÐÐ¾ÑÐ¾Ð²Ð½Ñ
 										<input id="option-equally-1" class="hidden" name="option-1" type="radio">
 									</label>
-									<label class="btn btn-info" for="option-sometimes-1">Иногда
+									<label class="btn btn-info" for="option-sometimes-1">ÐÐ½Ð¾Ð³Ð´Ð°
 										<input id="option-sometimes-1" class="hidden" name="option-1" type="radio">
 									</label>
-									<label class="btn btn-info" for="option-never-1">Никогда
+									<label class="btn btn-info" for="option-never-1">ÐÐ¸ÐºÐ¾Ð³Ð´Ð°
 										<input id="option-never-1" class="hidden" name="option-1" type="radio">
 									</label>
 								</div>
@@ -102,22 +104,22 @@
 						</div><!-- /.control-group -->
 
 						<div class="control-group">
-							<div class="control-label">Выношу мусор</div>
+							<div class="control-label">ÐÑÐ½Ð¾ÑÑ Ð¼ÑÑÐ¾Ñ</div>
 							<div class="controls">
 								<div class="btn-group" data-toggle="buttons-radio">
-									<label class="btn btn-info" for="option-always-2">Всегда
+									<label class="btn btn-info" for="option-always-2">ÐÑÐµÐ³Ð´Ð°
 										<input id="option-always-2" class="hidden" name="option-2" type="radio">
 									</label>
-									<label class="btn btn-info" for="option-often-2">Часто
+									<label class="btn btn-info" for="option-often-2">Ð§Ð°ÑÑÐ¾
 										<input id="option-often-2" class="hidden" name="option-2" type="radio">
 									</label>
-									<label class="btn btn-info" for="option-equally-2">Поровну
+									<label class="btn btn-info" for="option-equally-2">ÐÐ¾ÑÐ¾Ð²Ð½Ñ
 										<input id="option-equally-2" class="hidden" name="option-2" type="radio">
 									</label>
-									<label class="btn btn-info" for="option-sometimes-2">Иногда
+									<label class="btn btn-info" for="option-sometimes-2">ÐÐ½Ð¾Ð³Ð´Ð°
 										<input id="option-sometimes-2" class="hidden" name="option-2" type="radio">
 									</label>
-									<label class="btn btn-info" for="option-never-2">Никогда
+									<label class="btn btn-info" for="option-never-2">ÐÐ¸ÐºÐ¾Ð³Ð´Ð°
 										<input id="option-never-2" class="hidden" name="option-2" type="radio">
 									</label>
 								</div>
@@ -125,22 +127,22 @@
 						</div><!-- /.control-group -->
 
 						<div class="control-group">
-							<div class="control-label">Мою окна</div>
+							<div class="control-label">ÐÐ¾Ñ Ð¾ÐºÐ½Ð°</div>
 							<div class="controls">
 								<div class="btn-group" data-toggle="buttons-radio">
-									<label class="btn btn-info" for="option-always-3">Всегда
+									<label class="btn btn-info" for="option-always-3">ÐÑÐµÐ³Ð´Ð°
 										<input id="option-always-3" class="hidden" name="option-3" type="radio">
 									</label>
-									<label class="btn btn-info" for="option-often-3">Часто
+									<label class="btn btn-info" for="option-often-3">Ð§Ð°ÑÑÐ¾
 										<input id="option-often-3" class="hidden" name="option-3" type="radio">
 									</label>
-									<label class="btn btn-info" for="option-equally-3">Поровну
+									<label class="btn btn-info" for="option-equally-3">ÐÐ¾ÑÐ¾Ð²Ð½Ñ
 										<input id="option-equally-3" class="hidden" name="option-3" type="radio">
 									</label>
-									<label class="btn btn-info" for="option-sometimes-3">Иногда
+									<label class="btn btn-info" for="option-sometimes-3">ÐÐ½Ð¾Ð³Ð´Ð°
 										<input id="option-sometimes-3" class="hidden" name="option-3" type="radio">
 									</label>
-									<label class="btn btn-info" for="option-never-3">Никогда
+									<label class="btn btn-info" for="option-never-3">ÐÐ¸ÐºÐ¾Ð³Ð´Ð°
 										<input id="option-never-3" class="hidden" name="option-3" type="radio">
 									</label>
 								</div>
@@ -156,7 +158,7 @@
 			<div id="section-1" class="tab-pane hidden">
 				<form class="form-horizontal">
 					<fieldset>
-						<legend>Варианты</legend>
+						<legend>ÐÐ°ÑÐ¸Ð°Ð½ÑÑ</legend>
 
 					</fieldset>
 				</form>
@@ -164,7 +166,7 @@
 			<div id="section-2" class="tab-pane hidden">
 				<form class="form-horizontal">
 					<fieldset>
-						<legend>Варианты</legend>
+						<legend>ÐÐ°ÑÐ¸Ð°Ð½ÑÑ</legend>
 
 					</fieldset>
 				</form>
