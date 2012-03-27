@@ -29,5 +29,14 @@
 		</mvc:message-converters>
 	</mvc:annotation-driven>
 
+	<!-- <jdbc:embedded-database id="dataSource"> -->
+	<!-- <jdbc:script location="classpath:schema.sql" /> -->
+	<!-- <jdbc:script location="classpath:test-data.sql" /> -->
+	<!-- </jdbc:embedded-database> -->
 
+<!-- 	<jdbc:initialize-database data-source="dataSource"> -->
+<!-- 		<jdbc:script location="classpath:com/foo/sql/db-schema.sql" /> -->
+<!-- 		<jdbc:script location="classpath:com/foo/sql/db-test-data.sql" /> -->
+<!-- 	</jdbc:initialize-database> -->
+	
 </beans>
