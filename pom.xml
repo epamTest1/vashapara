@@ -14,6 +14,8 @@
 		<jelastic.username>epam.test2@gmail.com</jelastic.username>
 		<jelastic.password>epamtest</jelastic.password>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		
+		<spring.version>3.1.1.RELEASE</spring.version>
 	</properties>
 
 	<pluginRepositories>
@@ -71,17 +73,17 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-core</artifactId>
-			<version>3.1.1.RELEASE</version>
+			<version>${spring.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-webmvc</artifactId>
-			<version>3.1.1.RELEASE</version>
+			<version>${spring.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-web</artifactId>
-			<version>3.1.1.RELEASE</version>
+			<version>${spring.version}</version>
 		</dependency>
 		
 		<dependency>
