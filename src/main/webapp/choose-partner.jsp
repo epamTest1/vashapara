@@ -1,6 +1,5 @@
 <%@page contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!doctype html>
 <!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"><![endif]-->
 <!--[if IE 7]><html class="no-js lt-ie9 lt-ie8" lang="en"><![endif]-->
@@ -42,7 +41,7 @@
 								<span class="friends-list_name">${friend['first_name']} ${friend['last_name']}</span>
 								<input id="user-${friend['uid']}" class="hidden" name="username" value="user-${friend['uid']}" type="radio" >
 							</label>
-						</c:forEach>					
+						</c:forEach>
 					</div><!-- /.friends-list -->
 
 					<div class="form-actions">
@@ -51,8 +50,6 @@
 				</fieldset>
 			</form>
 		</div>
-
-
 	</div>
 
 </div><!-- /.main -->
@@ -65,6 +62,9 @@
 
 <script src="js/safe-log.js"></script>
 <script src="js/bootstrap.min.js"></script>
+
+<script src="js/pages/choose-partner.js"></script>
+
 <script src="js/script.js"></script>
 
 <!-- Google Analytics counter -->

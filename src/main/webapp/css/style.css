@@ -22,13 +22,17 @@ figure { margin: 0; }
 	}
 	.friends-list_item {
 		margin-top: 15px;
+		cursor: pointer;
 	}
-	.friends-list_item:hover {
-			background-color: #E1E7ED;
+	.friends-list_item__first {
+		margin-top: 0;
+	}
+	.friends-list_item:hover,
+	.friends-list_item__selected {
+		background-color: #E1E7ED;
 		}
 
 		.friends-list_thumbnail {
-			clear: left;
 			float: left;
 		}
 
