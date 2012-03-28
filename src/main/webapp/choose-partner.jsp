@@ -1,12 +1,5 @@
 <%@page contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%-- <c:out value="${testString}"></c:out> --%>
-<c:forEach var="friend" items="${friendsList['response']}">
-	<div>
-		<img src = "${friend['photo']}" alt = "${friend['first_name']} ${friend['last_name']}"></img>
-		<p>${friend['uid']} - ${friend['first_name']} ${friend['last_name']}</p>
-	</div>	
-</c:forEach>
 
 <!doctype html>
 <!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"><![endif]-->
@@ -41,63 +34,15 @@
 			<form>
 				<fieldset>
 					<div class="friends-list">
-						<label class="friends-list_item clearfix" for="user-1">
-							<span class="friends-list_thumbnail thumbnail">
-								<img src="http://placehold.it/30x40" alt="Витя">
-							</span>
-							<span class="friends-list_name">Ваня</span>
-							<input id="user-1" class="hidden" name="username" value="user-1" type="radio" >
-						</label>
-
-						<label class="friends-list_item clearfix" for="user-1">
-							<span class="friends-list_thumbnail thumbnail">
-								<img src="http://placehold.it/30x40" alt="Витя 2">
-							</span>
-							<span class="friends-list_name">Ваня 2</span>
-							<input id="user-2" class="hidden" name="username" value="user-2" type="radio" >
-						</label>
-						<label class="friends-list_item clearfix" for="user-1">
-							<span class="friends-list_thumbnail thumbnail">
-								<img src="http://placehold.it/30x40" alt="Витя 3">
-							</span>
-							<span class="friends-list_name">Ваня 3</span>
-							<input id="user-3" class="hidden" name="username" value="user-3" type="radio" >
-						</label>
-						<label class="friends-list_item clearfix" for="user-1">
-							<span class="friends-list_thumbnail thumbnail">
-								<img src="http://placehold.it/30x40" alt="Витя 4">
-							</span>
-							<span class="friends-list_name">Ваня 4</span>
-							<input id="user-4" class="hidden" name="username" value="user-4" type="radio" >
-						</label>
-						<label class="friends-list_item clearfix" for="user-1">
-							<span class="friends-list_thumbnail thumbnail">
-								<img src="http://placehold.it/30x40" alt="Витя 5">
-							</span>
-							<span class="friends-list_name">Ваня 5</span>
-							<input id="user-5" class="hidden" name="username" value="user-5" type="radio" >
-						</label>
-						<label class="friends-list_item clearfix" for="user-1">
-							<span class="friends-list_thumbnail thumbnail">
-								<img src="http://placehold.it/30x40" alt="Витя 6">
-							</span>
-							<span class="friends-list_name">Ваня 6</span>
-							<input id="user-6" class="hidden" name="username" value="user-6" type="radio" >
-						</label>
-						<label class="friends-list_item clearfix" for="user-1">
-							<span class="friends-list_thumbnail thumbnail">
-								<img src="http://placehold.it/30x40" alt="Витя 7">
-							</span>
-							<span class="friends-list_name">Ваня 7</span>
-							<input id="user-7" class="hidden" name="username" value="user-7" type="radio" >
-						</label>
-						<label class="friends-list_item clearfix" for="user-1">
-							<span class="friends-list_thumbnail thumbnail">
-								<img src="http://placehold.it/30x40" alt="Витя 8">
-							</span>
-							<span class="friends-list_name">Ваня 8</span>
-							<input id="user-8" class="hidden" name="username" value="user-8" type="radio" >
-						</label>
+						<c:forEach var="friend" items="${friendsList['response']}">
+							<label class="friends-list_item clearfix" for="user-${friend['uid']}">
+								<span class="friends-list_thumbnail thumbnail">
+									<img src="${friend['photo']}" alt="${friend['first_name']} ${friend['last_name']}" width="50">
+								</span>
+								<span class="friends-list_name">${friend['first_name']} ${friend['last_name']}</span>
+								<input id="user-${friend['uid']}" class="hidden" name="username" value="user-${friend['uid']}" type="radio" >
+							</label>
+						</c:forEach>					
 					</div><!-- /.friends-list -->
 
 					<div class="form-actions">
