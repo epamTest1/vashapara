@@ -19,6 +19,7 @@
 	</properties>
 
 	<pluginRepositories>
+		<!--
 		<pluginRepository>
 			<snapshots>
 				<enabled>false</enabled>
@@ -40,7 +41,8 @@
 			<id>jelastic-dependencies</id>
 			<name>plugins-dependencies</name>
 			<url>http://repo.jelastic.com:8081/plugins-snapshot/</url>
-		</pluginRepository>
+		</pluginRepository> 
+		-->
 	</pluginRepositories>
 
 	<dependencies>
@@ -123,6 +125,7 @@
 					<target>1.6</target>
 				</configuration>
 			</plugin>
+			<!--
 			<plugin>
 				<groupId>com.jelastic</groupId>
 				<artifactId>jelastic-maven-plugin</artifactId>
@@ -135,6 +138,7 @@
 					<api_hoster>app.jelastic.com</api_hoster>
 				</configuration>
 			</plugin>
+			-->
 			<plugin>
 				<groupId>org.apache.tomcat.maven</groupId>
 				<artifactId>tomcat7-maven-plugin</artifactId>

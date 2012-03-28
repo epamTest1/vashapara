@@ -28,7 +28,6 @@
 
 </header>
 <div class="main span8" role="main">
-
 	<div class="row">
 		<div class="span6">
 			<form>
@@ -51,17 +50,13 @@
 									</label>
 						</c:forEach>					
 					</div><!-- /.friends-list -->
-
 					<div class="form-actions">
-						<button type="submit" class="btn btn-primary pull-right">Go</button>
+						<button id="choose-partner-button" class="btn pull-right disabled" type="submit">Go</button>
 					</div>
 				</fieldset>
 			</form>
 		</div>
-
-
 	</div>
-
 </div><!-- /.main -->
 <footer>
 
@@ -72,6 +67,9 @@
 
 <script src="js/safe-log.js"></script>
 <script src="js/bootstrap.min.js"></script>
+
+<script src="js/pages/choose-partner.js"></script>
+
 <script src="js/script.js"></script>
 
 <!-- Google Analytics counter -->
