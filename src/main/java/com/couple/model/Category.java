@@ -26,6 +26,12 @@ public class Category {
 	@OneToMany(mappedBy = "category")
 	private List<Question> questions = new ArrayList<Question>();
 	
+	
+	public Category(long id, String name) {
+		this.id = id;
+		this.name = name;
+	}
+
 	public Long getId() {
 		return id;
 	}
@@ -40,6 +46,7 @@ public class Category {
 	
 	public void addQuestion(Question question) {
 		questions.add(question);
+		question.setCategory(this);
 	}
 	
 	public void removeQuestion(Question question) {

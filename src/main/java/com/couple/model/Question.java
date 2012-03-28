@@ -24,6 +24,11 @@ public class Question {
 	@JoinColumn(name = "CATEGORY_ID")
 	private Category category;
 
+	public Question(long id, String text) {
+		this.id = id;
+		this.text = text;
+	}
+	
 	public Long getId() {
 		return id;
 	}
