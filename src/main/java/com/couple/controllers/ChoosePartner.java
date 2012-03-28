@@ -100,7 +100,8 @@ public class ChoosePartner {
 			String friendsListAsJSON = requestToVK(params);
 			friendsList = mapper.readValue(friendsListAsJSON, Map.class);
 			for (Map friend : (ArrayList<LinkedHashMap>) friendsList.get("response")) {
-				if (friend.get("sex").equals(sex) || friend.get("sex").equals(SEX_NOT_SET) || sex.equals(SEX_NOT_SET)) {
+				Object friendSex = friend.get("sex");
+				if (friendSex.equals(sex) || friendSex.equals(SEX_NOT_SET) || sex.equals(SEX_NOT_SET)) {
 					result.add(friend);
 				}
 			}
@@ -143,22 +144,20 @@ public class ChoosePartner {
 	@RequestMapping(value = "/", method = GET)
 	public ModelAndView choosePartner(HttpServletRequest request) throws ClientProtocolException, IOException {
 		ModelAndView res = new ModelAndView();
-		StringBuilder result = new StringBuilder();
-		for (Object key : request.getParameterMap().keySet()) {
-			result.append("<p>" + key.toString() + " = " + request.getParameter(key.toString()) + " </p>");
-		}
 		apiURL = request.getParameter("api_url");
-		String viewerID = request.getParameter("viewer_id");// "2657654";
+		String viewerID = request.getParameter("viewer_id");
 
 		Map currentUser = getUserInfo(viewerID);
-		res.setViewName("choose-partner");
 		Integer sex = (Integer) currentUser.get("sex");
 		int sexParam = SEX_NOT_SET;
 		if (sex.equals(SEX_MALE))
 			sexParam = SEX_FEMALE;
 		else if (sex.equals(SEX_FEMALE))
 			sexParam = SEX_MALE;
-		res.addObject("friendsList", friends_get(viewerID, MAX_FRIENDS_TO_RECEIVE_FROM_API, sexParam));
+
+		res.setViewName("choose-partner");
+		List<Map> friendsList = friends_get(viewerID, MAX_FRIENDS_TO_RECEIVE_FROM_API, sexParam);
+		res.addObject("friendsList", friendsList);
 		return res;
 	}
 }
