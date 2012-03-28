@@ -7,7 +7,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -30,12 +35,16 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class ChoosePartner {
 	private final String api_secret = "ogoSgljHJqUGk9fnbzLa";
+	private final int MAX_FRIENDS_TO_RECEIVE_FROM_API = 20;
+	private final int SEX_MALE = 2;
+	private final int SEX_FEMALE = 1;
+	private final int SEX_NOT_SET = 0;
 	private String apiURL;
 
 	private String getSIG(Map<String, String> params) {
 		String data = "";
 		for (Map.Entry<String, String> entry : params.entrySet()) {
-			//System.out.println(entry.getKey() + "=" + entry.getValue());
+			// System.out.println(entry.getKey() + "=" + entry.getValue());
 			data += entry.getKey() + "=" + entry.getValue();
 		}
 		data += api_secret;
@@ -50,33 +59,53 @@ public class ChoosePartner {
 		return data;
 	}
 
-	private String getUserInfo()  throws ClientProtocolException, IOException {
+	private Map getUserInfo(String uid) throws ClientProtocolException, IOException {
 		TreeMap<String, String> params = new TreeMap<String, String>();
 		params.put("api_id", "2857279");
 		params.put("method", "users.get");
 		params.put("format", "json");
-		params.put("uids", "3628886");
-		String result = requestToVK(params);
-		return result;
+		params.put("fields", "uid,first_name,last_name,photo,sex");
+		params.put("v", "3.0");
+		params.put("uids", uid);
+		ObjectMapper mapper = new ObjectMapper(); // can reuse, share globally
+		ArrayList response = ((ArrayList) mapper.readValue(requestToVK(params), Map.class).get("response"));
+		if (response.isEmpty())
+			return new HashMap();
+		else
+			return (Map) response.get(0);
 	}
 
-	private String friends_get(String viewerID) throws ClientProtocolException, IOException {
+	// sex: 1 - женский, 2 - мужской, 0 - без указания пола.
+	private List<Map> friends_get(String viewerID, int step, Integer sex) throws ClientProtocolException, IOException {
+		ObjectMapper mapper = new ObjectMapper(); // can reuse, share globally
+		List<Map> result = new LinkedList();
+
 		TreeMap<String, String> params = new TreeMap<String, String>();
 		params.put("api_id", "2857279");
 		params.put("method", "friends.get");
-		params.put("v", "3.0");		
+		params.put("v", "3.0");
 		params.put("format", "json");
-		params.put("uid", viewerID);	
-		
-		//params.put("name_case", "nom");
-		params.put("count", "20");
-		//params.put("offset", "0");
-		
-		params.put("timestamp", Integer.toString((int) (System.currentTimeMillis() / 1000L)));
-		params.put("random", "40275037");
-		
-		params.put("fields", "uid,first_name,last_name,photo,photo_medium,photo_big");
-		String result = requestToVK(params);
+		params.put("uid", viewerID);
+		params.put("fields", "uid,first_name,last_name,photo,sex");
+		params.put("count", Integer.toString(step));
+		// params.put("name_case", "nom");
+		// params.put("offset", "0");
+		// params.put("timestamp", Integer.toString((int) (System.currentTimeMillis() / 1000L)));
+		// params.put("random", "40275037");
+
+		int offset = 0;
+		Map<String, Object> friendsList = new HashMap();
+		do {
+			params.put("offset", Integer.toString(offset));
+			String friendsListAsJSON = requestToVK(params);
+			friendsList = mapper.readValue(friendsListAsJSON, Map.class);
+			for (Map friend : (ArrayList<LinkedHashMap>) friendsList.get("response")) {
+				if (friend.get("sex").equals(sex) || friend.get("sex").equals(SEX_NOT_SET) || sex.equals(SEX_NOT_SET)) {
+					result.add(friend);
+				}
+			}
+			offset += step;
+		} while (!((ArrayList<Map>) friendsList.get("response")).isEmpty());
 		return result;
 	}
 
@@ -85,11 +114,11 @@ public class ChoosePartner {
 		params.put("api_id", "2857279");
 		params.put("method", "friends.getOnline");
 		params.put("format", "json");
-		params.put("uid", viewerID);		
+		params.put("uid", viewerID);
 		String result = "friends_getAppUsers: " + requestToVK(params);
 		return result;
 	}
-	
+
 	private String requestToVK(Map<String, String> params) throws IOException, ClientProtocolException, UnsupportedEncodingException {
 		String requestURL = apiURL + "?";
 		requestURL += getParamsAsString(params);
@@ -104,29 +133,32 @@ public class ChoosePartner {
 			BufferedReader br = new BufferedReader(new InputStreamReader(instream, "utf8"));
 			while (br.ready()) {
 				String str = br.readLine();
-				//System.out.println(str);
-				result += str ;
+				// System.out.println(str);
+				result += str;
 			}
 		}
 		return result;
 	}
 
 	@RequestMapping(value = "/", method = GET)
-	public ModelAndView choosePartner(HttpServletRequest request)  throws ClientProtocolException, IOException{
+	public ModelAndView choosePartner(HttpServletRequest request) throws ClientProtocolException, IOException {
 		ModelAndView res = new ModelAndView();
 		StringBuilder result = new StringBuilder();
 		for (Object key : request.getParameterMap().keySet()) {
 			result.append("<p>" + key.toString() + " = " + request.getParameter(key.toString()) + " </p>");
 		}
 		apiURL = request.getParameter("api_url");
-		String viewerID = request.getParameter("viewer_id");//"2657654";
-		
-		ObjectMapper mapper = new ObjectMapper(); // can reuse, share globally
-		String friendsListAsJSON = friends_get(viewerID);
-		System.out.println("friendsListAsJSON = " + friendsListAsJSON);
-		Map<String,Object> friendsList  = mapper.readValue(friendsListAsJSON, Map.class);
-		res.setViewName("choose-partner.jsp");
-		res.addObject("friendsList", friendsList);
+		String viewerID = request.getParameter("viewer_id");// "2657654";
+
+		Map currentUser = getUserInfo(viewerID);
+		res.setViewName("choose-partner");
+		Integer sex = (Integer) currentUser.get("sex");
+		int sexParam = SEX_NOT_SET;
+		if (sex.equals(SEX_MALE))
+			sexParam = SEX_FEMALE;
+		else if (sex.equals(SEX_FEMALE))
+			sexParam = SEX_MALE;
+		res.addObject("friendsList", friends_get(viewerID, MAX_FRIENDS_TO_RECEIVE_FROM_API, sexParam));
 		return res;
 	}
 }

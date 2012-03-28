@@ -34,7 +34,7 @@
 			<form>
 				<fieldset>
 					<div class="friends-list">
-						<c:forEach var="friend" items="${friendsList['response']}" varStatus="friendListStatus">
+						<c:forEach var="friend" items="${friendsList}" varStatus="friendListStatus">
 							<c:choose>
 								<c:when test="${friendListStatus.count == 1}">
 									<label class="friends-list_item clearfix friends-list_item__first" for="user-${friend.uid}">
