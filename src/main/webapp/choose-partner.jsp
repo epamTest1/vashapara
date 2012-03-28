@@ -3,7 +3,7 @@
 <%-- <c:out value="${testString}"></c:out> --%>
 <c:forEach var="friend" items="${friendsList['response']}">
 	<div>
-		<img src = "${friend['user']['photo']}" alt = "${friend['user']['first_name']} ${friend['user']['last_name']}"></img>
-		<p>${friend['user']['uid']} - ${friend['user']['first_name']} ${friend['user']['last_name']}</p>
+		<img src = "${friend['photo']}" alt = "${friend['first_name']} ${friend['last_name']}"></img>
+		<p>${friend['uid']} - ${friend['first_name']} ${friend['last_name']}</p>
 	</div>	
 </c:forEach>

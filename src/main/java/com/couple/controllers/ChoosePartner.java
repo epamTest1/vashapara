@@ -64,6 +64,7 @@ public class ChoosePartner {
 		TreeMap<String, String> params = new TreeMap<String, String>();
 		params.put("api_id", "2857279");
 		params.put("method", "friends.get");
+		params.put("v", "3.0");		
 		params.put("format", "json");
 		params.put("uid", viewerID);	
 		
@@ -71,8 +72,8 @@ public class ChoosePartner {
 		params.put("count", "20");
 		//params.put("offset", "0");
 		
-		//params.put("timestamp", Integer.toString((int) (System.currentTimeMillis() / 1000L)));
-		//params.put("random", "40275037");
+		params.put("timestamp", Integer.toString((int) (System.currentTimeMillis() / 1000L)));
+		params.put("random", "40275037");
 		
 		params.put("fields", "uid,first_name,last_name,photo,photo_medium,photo_big");
 		String result = requestToVK(params);
@@ -123,8 +124,7 @@ public class ChoosePartner {
 		ObjectMapper mapper = new ObjectMapper(); // can reuse, share globally
 		String friendsListAsJSON = friends_get(viewerID);
 		System.out.println("friendsListAsJSON = " + friendsListAsJSON);
-		Map<String,Object> friendsList = mapper.readValue(friendsListAsJSON, Map.class);
-		
+		Map<String,Object> friendsList  = mapper.readValue(friendsListAsJSON, Map.class);
 		res.setViewName("choose-partner.jsp");
 		res.addObject("friendsList", friendsList);
 		return res;
