@@ -50,7 +50,7 @@
 			</div><!-- /.friends-list -->
 
 			<div class="form-actions">
-				<button type="submit" class="btn pull-right">Go</button>
+				<button id="choose-partner-button" class="btn pull-right disabled" type="submit">Go</button>
 			</div>
 		</fieldset>
 	</form>
