@@ -16,12 +16,13 @@ figure { margin: 0; }
 }
 
 .friends-list {
-	height: 325px;
+	height: 400px;
 	overflow-x: hidden;
 	overflow-y: auto;
 	}
 	.friends-list_item {
 		margin-top: 15px;
+		margin-bottom: 0;
 		cursor: pointer;
 	}
 	.friends-list_item__first {
