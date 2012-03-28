@@ -1,4 +1,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+
 <!doctype html>
 <!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"><![endif]-->
 <!--[if IE 7]><html class="no-js lt-ie9 lt-ie8" lang="en"><![endif]-->
@@ -14,11 +17,10 @@
 <meta name="description" content="">
 
 <meta name="viewport" content="width=device-width">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 
-<link rel="stylesheet" href="css/bootstrap.css">
-<link rel="stylesheet" href="css/style.css">
-
-<script src="js/libs/modernizr-2.5.3.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/libs/modernizr-2.5.3.min.js"></script>
 </head>
 <body>
 <!--[if lt IE 7]><p class=chromeframe>Your browser is <em>ancient!</em> <a href="http://browsehappy.com/">Upgrade to a different browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to experience this site.</p><![endif]-->
@@ -26,150 +28,72 @@
 
 </header>
 <div class="main span8" role="main">
-
 	<ul class="thumbnails">
 		<li class="span2">
-			<h2 class="user-name">Ваня</h2>
+			<h2 class="user-name">${me.name}</h2>
 			<a href="#" class="thumbnail">
-				<img src="http://placehold.it/200x260" alt="Ваня">
+				<img src="${me.imageUrl}" alt="${me.name}">
 			</a>
 		</li>
 
 		<li class="span4"></li>
 
 		<li class="span2">
-			<h2 class="user-name">Витя</h2>
+			<h2 class="user-name">${partner.name}</h2>
 			<a href="#" class="thumbnail">
-				<img src="http://placehold.it/200x260" alt="Аня">
+				<img src="${partner.imageUrl}" alt="${partner.name}">
 			</a>
 		</li>
 	</ul>
 
 	<div class="tabbable tabs-right row">
 		<ul class="nav nav-tabs span2">
-			<li class="active hidden"><a href="#section-0" data-toggle="tab">Дом</a></li>
-			<li class="hidden"><a href="#section-1" data-toggle="tab">Дети</a></li>
-			<li class="hidden"><a href="#section-2" data-toggle="tab">Финансы</a></li>
+			<c:forEach var="category" items="${categories}" varStatus="index">
+				<%-- tabs are hidden --%>
+				<li class="${index.first ? 'active' : ''} hidden"><a href="#section-${category.id}" data-toggle="tab">${category.name}</a></li>
+			</c:forEach>
 		</ul>
 		<div class="tab-content span8">
-			<div id="section-0" class="tab-pane active">
-				<form class="form-horizontal">
-					<fieldset>
-						<legend>Варианты</legend>
-						<div class="control-group">
-							<div class="control-label">Убираю в квартире</div>
-							<div class="controls">
-								<div class="btn-group" data-toggle="buttons-radio">
-									<label class="btn btn-info" for="option-always-0">Всегда
-										<input id="option-always-0" class="hidden" name="option-0" type="radio">
-									</label>
-									<label class="btn btn-info" for="option-often-0">Часто
-										<input id="option-often-0" class="hidden" name="option-0" type="radio">
-									</label>
-									<label class="btn btn-info" for="option-equally-0">Поровну
-										<input id="option-equally-0" class="hidden" name="option-0" type="radio">
-									</label>
-									<label class="btn btn-info" for="option-sometimes-0">Иногда
-										<input id="option-sometimes-0" class="hidden" name="option-0" type="radio">
-									</label>
-									<label class="btn btn-info" for="option-never-0">Никогда
-										<input id="option-never-0" class="hidden" name="option-0" type="radio">
-									</label>
-								</div>
-							</div><!-- /.controls -->
-						</div><!-- /.control-group -->
-
-						<div class="control-group">
-							<div class="control-label">Мою посуду</div>
-							<div class="controls">
-								<div class="btn-group" data-toggle="buttons-radio">
-									<label class="btn btn-info" for="option-always-1">Всегда
-										<input id="option-always-1" class="hidden" name="option-1" type="radio">
-									</label>
-									<label class="btn btn-info" for="option-often-1">Часто
-										<input id="option-often-1" class="hidden" name="option-1" type="radio">
-									</label>
-									<label class="btn btn-info" for="option-equally-1">Поровну
-										<input id="option-equally-1" class="hidden" name="option-1" type="radio">
-									</label>
-									<label class="btn btn-info" for="option-sometimes-1">Иногда
-										<input id="option-sometimes-1" class="hidden" name="option-1" type="radio">
-									</label>
-									<label class="btn btn-info" for="option-never-1">Никогда
-										<input id="option-never-1" class="hidden" name="option-1" type="radio">
-									</label>
-								</div>
-							</div><!-- /.controls -->
-						</div><!-- /.control-group -->
-
-						<div class="control-group">
-							<div class="control-label">Выношу мусор</div>
-							<div class="controls">
-								<div class="btn-group" data-toggle="buttons-radio">
-									<label class="btn btn-info" for="option-always-2">Всегда
-										<input id="option-always-2" class="hidden" name="option-2" type="radio">
-									</label>
-									<label class="btn btn-info" for="option-often-2">Часто
-										<input id="option-often-2" class="hidden" name="option-2" type="radio">
-									</label>
-									<label class="btn btn-info" for="option-equally-2">Поровну
-										<input id="option-equally-2" class="hidden" name="option-2" type="radio">
-									</label>
-									<label class="btn btn-info" for="option-sometimes-2">Иногда
-										<input id="option-sometimes-2" class="hidden" name="option-2" type="radio">
-									</label>
-									<label class="btn btn-info" for="option-never-2">Никогда
-										<input id="option-never-2" class="hidden" name="option-2" type="radio">
-									</label>
-								</div>
-							</div><!-- /.controls -->
-						</div><!-- /.control-group -->
-
-						<div class="control-group">
-							<div class="control-label">Мою окна</div>
-							<div class="controls">
-								<div class="btn-group" data-toggle="buttons-radio">
-									<label class="btn btn-info" for="option-always-3">Всегда
-										<input id="option-always-3" class="hidden" name="option-3" type="radio">
-									</label>
-									<label class="btn btn-info" for="option-often-3">Часто
-										<input id="option-often-3" class="hidden" name="option-3" type="radio">
-									</label>
-									<label class="btn btn-info" for="option-equally-3">Поровну
-										<input id="option-equally-3" class="hidden" name="option-3" type="radio">
-									</label>
-									<label class="btn btn-info" for="option-sometimes-3">Иногда
-										<input id="option-sometimes-3" class="hidden" name="option-3" type="radio">
-									</label>
-									<label class="btn btn-info" for="option-never-3">Никогда
-										<input id="option-never-3" class="hidden" name="option-3" type="radio">
-									</label>
-								</div>
-							</div><!-- /.controls -->
-						</div><!-- /.control-group -->
-
-						<div class="form-actions">
-							<button type="submit" class="btn btn-primary pull-right">Save changes</button>
-						</div>
-					</fieldset>
-				</form>
-			</div>
-			<div id="section-1" class="tab-pane hidden">
-				<form class="form-horizontal">
-					<fieldset>
-						<legend>Варианты</legend>
-
-					</fieldset>
-				</form>
-			</div>
-			<div id="section-2" class="tab-pane hidden">
-				<form class="form-horizontal">
-					<fieldset>
-						<legend>Варианты</legend>
-
-					</fieldset>
-				</form>
-			</div>
+			<c:forEach var="category" items="${categories}" varStatus="index">
+				<div id="section-${category.id}" class="tab-pane ${index.first ? 'active' : ''}">
+					<form class="form-horizontal">
+						<fieldset>
+							<legend>Варианты</legend>
+							
+							<c:forEach var="question" items="${category.questions}">
+								<c:set var="inputName" value="question-${question.id}" />
+							
+								<div class="control-group">
+									<div class="control-label">${question.text}</div>
+									<div class="controls">
+										<div class="btn-group" data-toggle="buttons-radio">
+											<label class="btn btn-info" for="option-always-${question.id}">Всегда
+												<input id="option-always-${question.id}" class="hidden" name="${inputName}" type="radio" value="ALWAYS">
+											</label>
+											<label class="btn btn-info" for="option-often-${question.id}">Часто
+												<input id="option-often-${question.id}" class="hidden" name="${inputName}" type="radio" value="OFTEN">
+											</label>
+											<label class="btn btn-info" for="option-equally-${question.id}">Поровну
+												<input id="option-equally-${question.id}" class="hidden" name="${inputName}" type="radio" value="EQUALY">
+											</label>
+											<label class="btn btn-info" for="option-sometimes-${question.id}">Иногда
+												<input id="option-sometimes-${question.id}" class="hidden" name="${inputName}" type="radio" value="SOMETIMES">
+											</label>
+											<label class="btn btn-info" for="option-never-${question.id}">Никогда
+												<input id="option-never-${question.id}" class="hidden" name="${inputName}" type="radio" value="NEVER">
+											</label>
+										</div>
+									</div><!-- /.controls -->
+								</div><!-- /.control-group -->
+							</c:forEach>
+							
+							<div class="form-actions">
+								<button type="submit" class="btn btn-primary pull-right">Save changes</button>
+							</div>
+						</fieldset>
+					</form>
+				</div>
+			</c:forEach>
 		</div>
 	</div>
 
@@ -181,9 +105,9 @@
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 <script>window.jQuery || document.write('<script src="js/libs/jquery-1.7.1.min.js"><\/script>')</script>
 
-<script src="js/safe-log.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/script.js"></script>
+<script src="${pageContext.request.contextPath}/js/safe-log.js"></script>
+<script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/script.js"></script>
 
 <!-- Google Analytics counter -->
 <script>

@@ -125,7 +125,7 @@ public class ChoosePartner {
 		String friendsListAsJSON = friends_get(viewerID);
 		System.out.println("friendsListAsJSON = " + friendsListAsJSON);
 		Map<String,Object> friendsList  = mapper.readValue(friendsListAsJSON, Map.class);
-		res.setViewName("choose-partner.jsp");
+		res.setViewName("choose-partner");
 		res.addObject("friendsList", friendsList);
 		return res;
 	}
