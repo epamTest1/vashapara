@@ -1,8 +1,8 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-		xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-	
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
 	<modelVersion>4.0.0</modelVersion>
-	
+
 	<groupId>com.couple</groupId>
 	<artifactId>vashapara</artifactId>
 	<packaging>war</packaging>
@@ -14,35 +14,18 @@
 		<jelastic.username>epam.test2@gmail.com</jelastic.username>
 		<jelastic.password>epamtest</jelastic.password>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		
 		<spring.version>3.1.1.RELEASE</spring.version>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 	</properties>
 
 	<pluginRepositories>
-		<!--
-		<pluginRepository>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-			<id>jelastic-central</id>
-			<name>plugins-release</name>
-			<url>http://repo.jelastic.com:8081/plugins-release-local</url>
-		</pluginRepository>
-		
-		<pluginRepository>
-			<snapshots />
-			<id>jelastic-snapshots</id>
-			<name>plugins-snapshot</name>
-			<url>http://repo.jelastic.com:8081/plugins-snapshot-local</url>
-		</pluginRepository>
-
-		<pluginRepository>
-			<snapshots />
-			<id>jelastic-dependencies</id>
-			<name>plugins-dependencies</name>
-			<url>http://repo.jelastic.com:8081/plugins-snapshot/</url>
-		</pluginRepository> 
-		-->
+		<!-- <pluginRepository> <snapshots> <enabled>false</enabled> </snapshots> 
+			<id>jelastic-central</id> <name>plugins-release</name> <url>http://repo.jelastic.com:8081/plugins-release-local</url> 
+			</pluginRepository> <pluginRepository> <snapshots /> <id>jelastic-snapshots</id> 
+			<name>plugins-snapshot</name> <url>http://repo.jelastic.com:8081/plugins-snapshot-local</url> 
+			</pluginRepository> <pluginRepository> <snapshots /> <id>jelastic-dependencies</id> 
+			<name>plugins-dependencies</name> <url>http://repo.jelastic.com:8081/plugins-snapshot/</url> 
+			</pluginRepository> -->
 	</pluginRepositories>
 
 	<dependencies>
@@ -52,26 +35,26 @@
 			<version>2.5</version>
 			<scope>provided</scope>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>javax.servlet.jsp</groupId>
 			<artifactId>jsp-api</artifactId>
 			<version>2.1</version>
 			<scope>provided</scope>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>jstl</artifactId>
 			<version>1.2</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-entitymanager</artifactId>
 			<version>4.1.1.Final</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-core</artifactId>
@@ -87,7 +70,7 @@
 			<artifactId>spring-web</artifactId>
 			<version>${spring.version}</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.codehaus.jackson</groupId>
 			<artifactId>jackson-mapper-asl</artifactId>
@@ -104,7 +87,7 @@
 			<version>1.6</version>
 		</dependency>
 	</dependencies>
-	
+
 	<build>
 		<plugins>
 			<plugin>
@@ -125,20 +108,10 @@
 					<target>1.6</target>
 				</configuration>
 			</plugin>
-			<!--
-			<plugin>
-				<groupId>com.jelastic</groupId>
-				<artifactId>jelastic-maven-plugin</artifactId>
-				<version>1.7-SNAPSHOT</version>
-				<configuration>
-					<email>${jelastic.username}</email>
-					<password>${jelastic.password}</password>
-					<context>ROOT</context>
-					<environment>vashapara</environment>
-					<api_hoster>app.jelastic.com</api_hoster>
-				</configuration>
-			</plugin>
-			-->
+			<!-- <plugin> <groupId>com.jelastic</groupId> <artifactId>jelastic-maven-plugin</artifactId> 
+				<version>1.7-SNAPSHOT</version> <configuration> <email>${jelastic.username}</email> 
+				<password>${jelastic.password}</password> <context>ROOT</context> <environment>vashapara</environment> 
+				<api_hoster>app.jelastic.com</api_hoster> </configuration> </plugin> -->
 			<plugin>
 				<groupId>org.apache.tomcat.maven</groupId>
 				<artifactId>tomcat7-maven-plugin</artifactId>
