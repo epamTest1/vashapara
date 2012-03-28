@@ -1,6 +1,5 @@
 $(function(){
 	var VP = {
-
 		init: function() {
 
 		}

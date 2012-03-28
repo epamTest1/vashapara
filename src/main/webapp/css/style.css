@@ -15,9 +15,37 @@ figure { margin: 0; }
 	float: none;
 }
 
+.friends-list {
+	height: 325px;
+	overflow-x: hidden;
+	overflow-y: auto;
+	}
+	.friends-list_item {
+		margin-top: 15px;
+	}
+	.friends-list_item:hover {
+			background-color: #E1E7ED;
+		}
+
+		.friends-list_thumbnail {
+			clear: left;
+			float: left;
+		}
+
+		.friends-list_name {
+			float: left;
+			margin-left: 10px;
+			color: #45688E;
+			font-weight: 600;
+		}
+
+
+
 .user-name {
 	text-align: center;
 }
+
+
 
 
 
