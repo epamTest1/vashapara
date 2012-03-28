@@ -1,5 +1,5 @@
 <%@page contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!doctype html>
 <!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"><![endif]-->
@@ -34,14 +34,21 @@
 			<form>
 				<fieldset>
 					<div class="friends-list">
-						<c:forEach var="friend" items="${friendsList['response']}">
-							<label class="friends-list_item clearfix" for="user-${friend['uid']}">
-								<span class="friends-list_thumbnail thumbnail">
-									<img src="${friend['photo']}" alt="${friend['first_name']} ${friend['last_name']}" width="50">
-								</span>
-								<span class="friends-list_name">${friend['first_name']} ${friend['last_name']}</span>
-								<input id="user-${friend['uid']}" class="hidden" name="username" value="user-${friend['uid']}" type="radio" >
-							</label>
+						<c:forEach var="friend" items="${friendsList['response']}" varStatus="friendListStatus">
+							<c:choose>
+								<c:when test="${friendListStatus.count == 1}">
+									<label class="friends-list_item clearfix friends-list_item__first" for="user-${friend.uid}">
+								</c:when>
+								<c:otherwise>
+									<label class="friends-list_item clearfix" for="user-${friend.uid}">
+								</c:otherwise>
+							</c:choose>						
+										<span class="friends-list_thumbnail thumbnail">
+											<img src="${friend.photo}" alt="${friend.first_name} ${friend.last_name}" width="50">
+										</span>
+										<span class="friends-list_name">${friend.first_name} ${friend.last_name}</span>
+										<input id="user-${friend.uid}" class="hidden" name="username" value="user-${friend.uid}" type="radio" >
+									</label>
 						</c:forEach>					
 					</div><!-- /.friends-list -->
 
