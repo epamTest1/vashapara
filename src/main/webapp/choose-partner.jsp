@@ -41,14 +41,14 @@
 								<c:otherwise>
 									<label class="friends-list_item clearfix" for="user-${friend.uid}">
 								</c:otherwise>
-							</c:choose>						
+							</c:choose>
 										<span class="friends-list_thumbnail thumbnail">
 											<img src="${friend.photo}" alt="${friend.first_name} ${friend.last_name}" width="50">
 										</span>
 										<span class="friends-list_name">${friend.first_name} ${friend.last_name}</span>
 										<input id="user-${friend.uid}" class="hidden" name="partnerId" value="${friend.uid}" type="radio" >
 									</label>
-						</c:forEach>					
+						</c:forEach>
 					</div><!-- /.friends-list -->
 					<div class="form-actions">
 						<button id="choose-partner-button" class="btn pull-right disabled" type="submit">Go</button>
