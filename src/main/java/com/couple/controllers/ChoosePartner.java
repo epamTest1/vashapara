@@ -158,6 +158,8 @@ public class ChoosePartner {
 		res.setViewName("choose-partner");
 		List<Map> friendsList = friends_get(viewerID, MAX_FRIENDS_TO_RECEIVE_FROM_API, sexParam);
 		res.addObject("friendsList", friendsList);
+		res.addObject("myId", viewerID);
+		
 		return res;
 	}
 }

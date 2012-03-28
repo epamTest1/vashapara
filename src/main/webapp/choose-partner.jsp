@@ -30,7 +30,7 @@
 <div class="main span8" role="main">
 	<div class="row">
 		<div class="span6">
-			<form>
+			<form data-ajax-url="/survey" data-myid="${myId}">
 				<fieldset>
 					<div class="friends-list">
 						<c:forEach var="friend" items="${friendsList}" varStatus="friendListStatus">
