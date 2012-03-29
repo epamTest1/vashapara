@@ -17,10 +17,10 @@
 <meta name="description" content="">
 
 <meta name="viewport" content="width=device-width">
-<link rel="stylesheet" href="${pageContext.request.contextPath}css/bootstrap.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}css/style.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 
-<script src="${pageContext.request.contextPath}js/libs/modernizr-2.5.3.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/libs/modernizr-2.5.3.min.js"></script>
 </head>
 <body>
 <!--[if lt IE 7]><p class=chromeframe>Your browser is <em>ancient!</em> <a href="http://browsehappy.com/">Upgrade to a different browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to experience this site.</p><![endif]-->
@@ -56,7 +56,7 @@
 		<div class="tab-content span10">
 			<c:forEach var="category" items="${categories}" varStatus="index">
 				<div id="section-${category.id}" class="tab-pane ${index.first ? 'active' : ''}">
-					<form class="form-horizontal">
+					<form class="form-horizontal" action="${pageContext.request.contextPath}/survey/${me.id}/${partner.id}" method="post">
 						<fieldset>
 							<legend>Варианты</legend>
 
@@ -105,12 +105,12 @@
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 <script>window.jQuery || document.write('<script src="js/libs/jquery-1.7.1.min.js"><\/script>')</script>
 
-<script src="${pageContext.request.contextPath}js/safe-log.js"></script>
-<script src="${pageContext.request.contextPath}js/bootstrap.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/safe-log.js"></script>
+<script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
 
-<script src="${pageContext.request.contextPath}js/pages/survey.js"></script>
+<script src="${pageContext.request.contextPath}/js/pages/survey.js"></script>
 
-<script src="${pageContext.request.contextPath}js/script.js"></script>
+<script src="${pageContext.request.contextPath}/js/script.js"></script>
 
 <!-- Google Analytics counter -->
 <script>
