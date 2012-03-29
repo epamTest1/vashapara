@@ -1,6 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 <!doctype html>
 <!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"><![endif]-->
@@ -17,19 +17,19 @@
 <meta name="description" content="">
 
 <meta name="viewport" content="width=device-width">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}css/bootstrap.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}css/style.css">
 
-<script src="${pageContext.request.contextPath}/js/libs/modernizr-2.5.3.min.js"></script>
+<script src="${pageContext.request.contextPath}js/libs/modernizr-2.5.3.min.js"></script>
 </head>
 <body>
 <!--[if lt IE 7]><p class=chromeframe>Your browser is <em>ancient!</em> <a href="http://browsehappy.com/">Upgrade to a different browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to experience this site.</p><![endif]-->
 <header>
 
 </header>
-<div class="main span8" role="main">
-	<ul class="thumbnails">
-		<li class="span2">
+<div class="main span10" role="main">
+	<ul class="thumbnails row">
+		<li class="span3">
 			<h2 class="user-name">${me.name}</h2>
 			<a href="#" class="thumbnail">
 				<img src="${me.imageUrl}" alt="${me.name}">
@@ -38,7 +38,7 @@
 
 		<li class="span4"></li>
 
-		<li class="span2">
+		<li class="span3">
 			<h2 class="user-name">${partner.name}</h2>
 			<a href="#" class="thumbnail">
 				<img src="${partner.imageUrl}" alt="${partner.name}">
@@ -47,22 +47,22 @@
 	</ul>
 
 	<div class="tabbable tabs-right row">
-		<ul class="nav nav-tabs span2">
+		<%-- tabs are hidden --%>
+		<ul class="nav nav-tabs span2 hidden">
 			<c:forEach var="category" items="${categories}" varStatus="index">
-				<%-- tabs are hidden --%>
-				<li class="${index.first ? 'active' : ''} hidden"><a href="#section-${category.id}" data-toggle="tab">${category.name}</a></li>
+				<li class="${index.first ? 'active' : ''}"><a href="#section-${category.id}" data-toggle="tab">${category.name}</a></li>
 			</c:forEach>
 		</ul>
-		<div class="tab-content span8">
+		<div class="tab-content span10">
 			<c:forEach var="category" items="${categories}" varStatus="index">
 				<div id="section-${category.id}" class="tab-pane ${index.first ? 'active' : ''}">
 					<form class="form-horizontal">
 						<fieldset>
 							<legend>Варианты</legend>
-							
+
 							<c:forEach var="question" items="${category.questions}">
 								<c:set var="inputName" value="question-${question.id}" />
-							
+
 								<div class="control-group">
 									<div class="control-label">${question.text}</div>
 									<div class="controls">
@@ -86,15 +86,15 @@
 									</div><!-- /.controls -->
 								</div><!-- /.control-group -->
 							</c:forEach>
-							
+
 							<div class="form-actions">
-								<button type="submit" class="btn btn-primary pull-right">Save changes</button>
+								<button class="btn pull-right" type="submit">Save changes</button>
 							</div>
 						</fieldset>
 					</form>
 				</div>
 			</c:forEach>
-		</div>
+		</div><!-- /.tab-content -->
 	</div>
 
 </div><!-- /.main -->
@@ -105,9 +105,12 @@
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 <script>window.jQuery || document.write('<script src="js/libs/jquery-1.7.1.min.js"><\/script>')</script>
 
-<script src="${pageContext.request.contextPath}/js/safe-log.js"></script>
-<script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
-<script src="${pageContext.request.contextPath}/js/script.js"></script>
+<script src="${pageContext.request.contextPath}js/safe-log.js"></script>
+<script src="${pageContext.request.contextPath}js/bootstrap.min.js"></script>
+
+<script src="${pageContext.request.contextPath}js/pages/survey.js"></script>
+
+<script src="${pageContext.request.contextPath}js/script.js"></script>
 
 <!-- Google Analytics counter -->
 <script>

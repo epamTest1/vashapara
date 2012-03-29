@@ -28,13 +28,13 @@
 
 </header>
 <div class="main span8" role="main">
-	<form>
+	<form action="/survey" method="get">
 		<fieldset>
 			<div class="friends-list">
-				<c:forEach var="friend" items="${friendsList['response']}" varStatus="friendListStatus">
+				<c:forEach var="friend" items="${friendsList}" varStatus="friendListStatus">
 					<c:choose>
 						<c:when test="${friendListStatus.count == 1}">
-							<label class="friends-list_item clearfix friends-list_item__first" for="user-${friend.uid}">
+							<label class="friends-list_item clearfix friends-list_item__first" for="${friend.uid}">
 						</c:when>
 						<c:otherwise>
 							<label class="friends-list_item clearfix" for="user-${friend.uid}">
@@ -44,15 +44,15 @@
 									<img src="${friend.photo}" alt="${friend.first_name} ${friend.last_name}" width="50">
 								</span>
 								<span class="friends-list_name">${friend.first_name} ${friend.last_name}</span>
-								<input id="user-${friend.uid}" class="hidden" name="username" value="user-${friend.uid}" type="radio" >
+								<input id="user-${friend.uid}" class="hidden" name="partnerId" value="${friend.uid}" type="radio" >
 							</label>
 				</c:forEach>
 			</div><!-- /.friends-list -->
-
 			<div class="form-actions">
 				<button id="choose-partner-button" class="btn pull-right disabled" type="submit">Go</button>
 			</div>
 		</fieldset>
+		<input name="myId" value="${myId}" type="hidden">
 	</form>
 </div><!-- /.main -->
 <footer>
