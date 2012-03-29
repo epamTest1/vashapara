@@ -37,7 +37,7 @@ public class ChoosePartner extends BaseVKController {
         params.put("v", "3.0");
         params.put("uids", uid);
         ObjectMapper mapper = new ObjectMapper(); // can reuse, share globally
-        ArrayList response = ((ArrayList) mapper.readValue(requestToVK(params), Map.class).get("response"));
+        ArrayList response = ((ArrayList) mapper.readValue(request(params), Map.class).get("response"));
         if (response.isEmpty())
             return new HashMap();
         else
@@ -67,7 +67,7 @@ public class ChoosePartner extends BaseVKController {
         Map<String, Object> friendsList = new HashMap();
         do {
             params.put("offset", Integer.toString(offset));
-            String friendsListAsJSON = requestToVK(params);
+            String friendsListAsJSON = request(params);
             friendsList = mapper.readValue(friendsListAsJSON, Map.class);
             for (Map friend : (ArrayList<LinkedHashMap>) friendsList.get("response")) {
                 Object friendSex = friend.get("sex");
@@ -88,7 +88,7 @@ public class ChoosePartner extends BaseVKController {
         params.put("method", "friends.getOnline");
         params.put("format", "json");
         params.put("uid", viewerID);
-        String result = "friends_getAppUsers: " + requestToVK(params);
+        String result = "friends_getAppUsers: " + request(params);
         return result;
     }
 
