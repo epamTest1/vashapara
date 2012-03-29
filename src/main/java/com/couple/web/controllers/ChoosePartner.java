@@ -107,8 +107,11 @@ public class ChoosePartner extends BaseVKController {
             sexParam = SEX_MALE;
 
         res.setViewName("choose-partner");
+        
+        res.addObject("myId", viewerID);
         List<Map> friendsList = friends_get(viewerID, MAX_FRIENDS_TO_RECEIVE_FROM_API, sexParam);
         res.addObject("friendsList", friendsList);
+        
         return res;
     }
 }
