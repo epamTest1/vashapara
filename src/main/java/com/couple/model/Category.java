@@ -26,9 +26,11 @@ public class Category {
 	@OneToMany(mappedBy = "category")
 	private List<Question> questions = new ArrayList<Question>();
 	
+	protected Category() {
+		
+	}
 	
-	public Category(long id, String name) {
-		this.id = id;
+	public Category(String name) {
 		this.name = name;
 	}
 

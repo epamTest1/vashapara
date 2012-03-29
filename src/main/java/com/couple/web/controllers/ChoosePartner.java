@@ -1,4 +1,4 @@
-package com.couple.controllers;
+package com.couple.web.controllers;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 

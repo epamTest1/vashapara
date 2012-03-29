@@ -1,4 +1,4 @@
-package com.couple.controllers;
+package com.couple.web.controllers;
 
 import java.io.BufferedReader;
 import java.io.IOException;
