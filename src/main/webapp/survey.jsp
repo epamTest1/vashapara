@@ -132,8 +132,7 @@
 	(w[c] = w[c] || []).push(function() {
 		try {
 			w.yaCounter13154038 = new Ya.Metrika({id:13154038, enableAll: true, trackHash:true, webvisor:true});
-		}
-		catch(e) {}
+		} catch(e) {}
 	});
 })(window, "yandex_metrika_callbacks");
 </script></div>
