@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.Map;
 
 import org.apache.commons.codec.digest.DigestUtils;
@@ -18,6 +19,9 @@ import org.apache.http.impl.client.DefaultHttpClient;
 public class BaseVKController {
 
     protected final String api_secret = "ogoSgljHJqUGk9fnbzLa";
+    protected final String api_id = "2857279";
+    protected final String api_ver = "3.0";
+
     protected String apiURL;
 
     protected String getSIG(Map<String, String> params) {
@@ -30,15 +34,21 @@ public class BaseVKController {
         return DigestUtils.md5Hex(data);
     }
 
-    protected String getParamsAsString(Map<String, String> params) {
+    protected String getParamsAsString(Map<String, String> params) throws UnsupportedEncodingException {
         String data = "";
         for (Map.Entry<String, String> entry : params.entrySet()) {
-            data += entry.getKey() + "=" + entry.getValue() + "&";
+            //any messages should be encoded
+            if ("message".equals(entry.getKey())) {
+                data += entry.getKey() + "=" + URLEncoder.encode(entry.getValue(), "UTF-8") + "&";
+            } else {
+                data += entry.getKey() + "=" + entry.getValue() + "&";
+            }
+
         }
         return data;
     }
 
-    protected String requestToVK(Map<String, String> params) throws IOException, ClientProtocolException, UnsupportedEncodingException {
+    protected String request(Map<String, String> params) throws IOException, ClientProtocolException, UnsupportedEncodingException {
         String requestURL = apiURL + "?";
         requestURL += getParamsAsString(params);
         requestURL += "sig=" + getSIG(params);

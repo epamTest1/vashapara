@@ -1,5 +1,6 @@
-<%@page contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 <!doctype html>
 <!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"><![endif]-->
@@ -16,7 +17,6 @@
 <meta name="description" content="">
 
 <meta name="viewport" content="width=device-width">
-
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 
@@ -27,47 +27,12 @@
 <header>
 
 </header>
-<div class="main span8" role="main">
-	<form action="${pageContext.request.contextPath}/survey" method="get">
-		<fieldset>
-			<div class="friends-list">
-				<c:forEach var="friend" items="${friendsList}" varStatus="friendListStatus">
-					<c:choose>
-						<c:when test="${friendListStatus.count == 1}">
-							<label class="friends-list_item clearfix friends-list_item__first" for="${friend.uid}">
-						</c:when>
-						<c:otherwise>
-							<label class="friends-list_item clearfix" for="user-${friend.uid}">
-						</c:otherwise>
-					</c:choose>
-								<span class="friends-list_thumbnail thumbnail">
-									<img src="${friend.photo}" alt="${friend.first_name} ${friend.last_name}" width="50">
-								</span>
-								<span class="friends-list_name">${friend.first_name} ${friend.last_name}</span>
-								<input id="user-${friend.uid}" class="hidden" name="partnerId" value="${friend.uid}" type="radio" >
-							</label>
-				</c:forEach>
-			</div><!-- /.friends-list -->
-			<div class="form-actions">
-				<button id="choose-partner-button" class="btn pull-right disabled" type="submit">Go</button>
-			</div>
-		</fieldset>
-		<input name="myId" value="${myId}" type="hidden">
-	</form>
+<div class="main span10" role="main">
+	Coming soon )))
 </div><!-- /.main -->
 <footer>
 
 </footer>
-
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-<script>window.jQuery || document.write('<script src="js/libs/jquery-1.7.1.min.js"><\/script>')</script>
-
-<script src="${pageContext.request.contextPath}/js/safe-log.js"></script>
-<script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
-
-<script src="${pageContext.request.contextPath}/js/pages/choose-partner.js"></script>
-
-<script src="${pageContext.request.contextPath}/js/script.js"></script>
 
 <!-- Google Analytics counter -->
 <script>
@@ -89,7 +54,8 @@
 	(w[c] = w[c] || []).push(function() {
 		try {
 			w.yaCounter13154038 = new Ya.Metrika({id:13154038, enableAll: true, trackHash:true, webvisor:true});
-		} catch(e) {}
+		}
+		catch(e) {}
 	});
 })(window, "yandex_metrika_callbacks");
 </script></div>
