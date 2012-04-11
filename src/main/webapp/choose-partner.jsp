@@ -1,6 +1,8 @@
 <%@page contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+<c:set var="contextPath" value="${empty pageContext.request.contextPath == '/' ? '' : pageContext.request.contextPath}" />
+
 <!doctype html>
 <!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"><![endif]-->
 <!--[if IE 7]><html class="no-js lt-ie9 lt-ie8" lang="en"><![endif]-->
@@ -17,10 +19,10 @@
 
 <meta name="viewport" content="width=device-width">
 
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
+<link rel="stylesheet" href="${contextPath}/css/bootstrap.css">
+<link rel="stylesheet" href="${contextPath}/css/style.css">
 
-<script src="${pageContext.request.contextPath}/js/libs/modernizr-2.5.3.min.js"></script>
+<script src="${contextPath}/js/libs/modernizr-2.5.3.min.js"></script>
 </head>
 <body>
 <!--[if lt IE 7]><p class=chromeframe>Your browser is <em>ancient!</em> <a href="http://browsehappy.com/">Upgrade to a different browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to experience this site.</p><![endif]-->
@@ -28,7 +30,7 @@
 
 </header>
 <div class="main span8" role="main">
-	<form action="${pageContext.request.contextPath}/survey" method="get">
+	<form action="${contextPath}/survey" method="get">
 		<fieldset>
 			<div class="friends-list">
 				<c:forEach var="friend" items="${friendsList}" varStatus="friendListStatus">
@@ -62,12 +64,12 @@
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 <script>window.jQuery || document.write('<script src="js/libs/jquery-1.7.1.min.js"><\/script>')</script>
 
-<script src="${pageContext.request.contextPath}/js/safe-log.js"></script>
-<script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
+<script src="${contextPath}/js/safe-log.js"></script>
+<script src="${contextPath}/js/bootstrap.min.js"></script>
 
-<script src="${pageContext.request.contextPath}/js/pages/choose-partner.js"></script>
+<script src="${contextPath}/js/pages/choose-partner.js"></script>
 
-<script src="${pageContext.request.contextPath}/js/script.js"></script>
+<script src="${contextPath}/js/script.js"></script>
 
 <!-- Google Analytics counter -->
 <script>
