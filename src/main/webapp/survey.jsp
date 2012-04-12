@@ -90,7 +90,7 @@
 							</c:forEach>
 
 							<div class="form-actions">
-								<button class="btn pull-right" type="submit">Save changes</button>
+								<button class="btn pull-right" type="submit">Все верно!</button>
 							</div>
 						</fieldset>
 					</form>
