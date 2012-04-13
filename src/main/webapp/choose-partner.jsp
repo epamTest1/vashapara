@@ -26,8 +26,8 @@
 </head>
 <body>
 <!--[if lt IE 7]><p class=chromeframe>Your browser is <em>ancient!</em> <a href="http://browsehappy.com/">Upgrade to a different browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to experience this site.</p><![endif]-->
-<header>
-
+<header style="text-align: center;"  >
+		<img align="middle" alt="Ваша пара" height="150" src="/img/head-img.png">
 </header>
 <div class="main span8" role="main">
 	<form action="${contextPath}/survey" method="get">
@@ -51,7 +51,7 @@
 				</c:forEach>
 			</div><!-- /.friends-list -->
 			<div class="form-actions">
-				<button id="choose-partner-button" class="btn pull-right disabled" type="submit">Go</button>
+				<button id="choose-partner-button" class="btn pull-right disabled" type="submit">Продолжить</button>
 			</div>
 		</fieldset>
 		<input name="myId" value="${myId}" type="hidden">

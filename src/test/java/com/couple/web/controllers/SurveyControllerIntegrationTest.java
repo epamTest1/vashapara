@@ -25,6 +25,7 @@ import com.couple.model.Category;
 import com.couple.services.CategoryService;
 import com.couple.services.ResultsService;
 import com.couple.web.dto.SurveyAnswers;
+import com.couple.web.dto.User;
 
 public class SurveyControllerIntegrationTest {
 	private static final String MY_ID = "1";
@@ -32,6 +33,7 @@ public class SurveyControllerIntegrationTest {
 	
 	private CategoryService categoryService = mock(CategoryService.class);
 	private ResultsService resultsService = mock(ResultsService.class);
+	private ChoosePartner choosePartner = mock(ChoosePartner.class);
 	
 	private MockMvc mockMvc;
 	
@@ -40,6 +42,7 @@ public class SurveyControllerIntegrationTest {
 		SurveyController controller = new SurveyController();
 		controller.setCategoryService(categoryService);
 		controller.setResultsService(resultsService);
+		controller.setChoosePartner(choosePartner);
 		
 		UrlBasedViewResolver resolver = new UrlBasedViewResolver();
 		resolver.setViewClass(JstlView.class);
@@ -52,12 +55,17 @@ public class SurveyControllerIntegrationTest {
 	@Test
 	public void shouldFillModelForSurveyForm() throws Exception {
 		List<Category> categories = Arrays.asList(new Category("dummy"));
+		User me = new User(MY_ID, "dummy", "");
+		User partner = new User(PARTNER_ID, "dummy", "");
 		
 		when(categoryService.getCategories()).thenReturn(categories);
+		when(choosePartner.getUser(MY_ID)).thenReturn(me);
+		when(choosePartner.getUser(PARTNER_ID)).thenReturn(partner);
 		
 		mockMvc.perform(get("/survey").param("myId", MY_ID).param("partnerId", PARTNER_ID))
 			.andExpect(model().attribute("categories", categories))
-			.andExpect(model().attributeExists("me", "partner"));
+			.andExpect(model().attribute("me", me))
+			.andExpect(model().attribute("partner", partner));
 	}
 	
 	@Test

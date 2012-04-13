@@ -18,55 +18,61 @@ import org.apache.http.impl.client.DefaultHttpClient;
 
 public class BaseVKController {
 
-    protected final String api_secret = "ogoSgljHJqUGk9fnbzLa";
-    protected final String api_id = "2857279";
-    protected final String api_ver = "3.0";
+	protected final static String API_SECRET = "ogoSgljHJqUGk9fnbzLa";
+	protected final static String API_ID = "2857279";
+	protected final static String API_VER = "3.0";
 
-    protected String apiURL;
+	protected final static String API_FORMAT = "json";
 
-    protected String getSIG(Map<String, String> params) {
-        String data = "";
-        for (Map.Entry<String, String> entry : params.entrySet()) {
-            // System.out.println(entry.getKey() + "=" + entry.getValue());
-            data += entry.getKey() + "=" + entry.getValue();
-        }
-        data += api_secret;
-        return DigestUtils.md5Hex(data);
-    }
+	protected final static String CODE_PAGE = "UTF-8";
 
-    protected String getParamsAsString(Map<String, String> params) throws UnsupportedEncodingException {
-        String data = "";
-        for (Map.Entry<String, String> entry : params.entrySet()) {
-            //any messages should be encoded
-            if ("message".equals(entry.getKey())) {
-                data += entry.getKey() + "=" + URLEncoder.encode(entry.getValue(), "UTF-8") + "&";
-            } else {
-                data += entry.getKey() + "=" + entry.getValue() + "&";
-            }
+	protected String apiURL;
 
-        }
-        return data;
-    }
+	protected String getSIG(Map<String, String> params) {
+		StringBuilder data = new StringBuilder();
+		for (Map.Entry<String, String> entry : params.entrySet()) {
+			data.append(entry.getKey()).append('=').append(entry.getValue());
+		}
+		data.append(API_SECRET);
+		return DigestUtils.md5Hex(data.toString());
+	}
 
-    protected String request(Map<String, String> params) throws IOException, ClientProtocolException, UnsupportedEncodingException {
-        String requestURL = apiURL + "?";
-        requestURL += getParamsAsString(params);
-        requestURL += "sig=" + getSIG(params);
-        String result = "";
-        HttpClient httpclient = new DefaultHttpClient();
-        HttpGet httpget = new HttpGet(requestURL);
-        HttpResponse response = httpclient.execute(httpget);
-        HttpEntity entity = response.getEntity();
-        if (entity != null) {
-            InputStream instream = entity.getContent();
-            BufferedReader br = new BufferedReader(new InputStreamReader(instream, "utf8"));
-            while (br.ready()) {
-                String str = br.readLine();
-                // System.out.println(str);
-                result += str;
-            }
-        }
-        return result;
-    }
+	protected String getParamsAsString(Map<String, String> params) throws UnsupportedEncodingException {
+		StringBuilder data = new StringBuilder(32);
+		for (Map.Entry<String, String> entry : params.entrySet()) {
+			if ("message".equals(entry.getKey())) {
+				data.append(entry.getKey()).append('=');
+				data.append(URLEncoder.encode(entry.getValue(), CODE_PAGE)).append('&');
+			} else {
+				data.append(entry.getKey()).append('=');
+				data.append(entry.getValue()).append('&');
+			}
+
+		}
+		return data.toString();
+	}
+
+	protected String request(Map<String, String> params) throws IOException, ClientProtocolException, UnsupportedEncodingException {
+		String requestURL = apiURL + "?";
+		requestURL += getParamsAsString(params);
+		requestURL += "sig=" + getSIG(params);
+
+		StringBuilder result = new StringBuilder(32);
+
+		HttpClient httpclient = new DefaultHttpClient();
+		HttpGet httpget = new HttpGet(requestURL);
+		HttpResponse response = httpclient.execute(httpget);
+		HttpEntity entity = response.getEntity();
+		if (entity != null) {
+			InputStream instream = entity.getContent();
+			BufferedReader br = new BufferedReader(new InputStreamReader(instream, CODE_PAGE));
+			String str = null;
+			while (br.ready()) {
+				str = br.readLine();
+				result.append(str);
+			}
+		}
+		return result.toString();
+	}
 
 }

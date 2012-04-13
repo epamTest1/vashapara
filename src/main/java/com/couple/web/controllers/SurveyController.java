@@ -3,6 +3,8 @@ package com.couple.web.controllers;
 import java.util.Collections;
 import java.util.List;
 
+import java.io.IOException;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,15 +19,19 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import com.couple.model.Answer;
 import com.couple.services.CategoryService;
+
 import com.couple.services.ResultsService;
 import com.couple.web.dto.SurveyAnswers;
-import com.couple.web.dto.User;
+
 
 @Controller
 @RequestMapping("/survey")
 public class SurveyController {
 	
 	private CategoryService categoryService;
+	
+	private ChoosePartner choosePartner;
+	
 	private ResultsService resultsService;
 	
 	@Autowired
@@ -33,6 +39,11 @@ public class SurveyController {
 		this.categoryService = categoryService;
 	}
 	
+	@Autowired
+	public void setChoosePartner(ChoosePartner choosePartner) {
+		this.choosePartner = choosePartner;
+	}
+
 	@Autowired
 	public void setResultsService(ResultsService resultsService) {
 		this.resultsService = resultsService;
@@ -42,8 +53,13 @@ public class SurveyController {
 	public ModelAndView getSurveyForm(@RequestParam("myId") String myId, @RequestParam("partnerId") String partnerId) {
 		ModelAndView modelAndView = new ModelAndView("survey");
 		modelAndView.addObject("categories", categoryService.getCategories());
-		modelAndView.addObject("me", new User(myId, "Ваня", "http://placehold.it/200x260"));
-		modelAndView.addObject("partner", new User(partnerId, "Аня", "http://placeboobs.com/200/260"));
+		
+		try {
+			modelAndView.addObject("me", choosePartner.getUser(myId));
+			modelAndView.addObject("partner", choosePartner.getUser(partnerId));
+		}
+		catch (IOException e) {
+		}
 		
 		return modelAndView;
 	}
