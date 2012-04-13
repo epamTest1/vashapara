@@ -19,17 +19,17 @@ public class Category {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID")
 	private Long id;
-	
+
 	@Column(name = "NAME")
 	private String name;
-	
+
 	@OneToMany(mappedBy = "category")
 	private List<Question> questions = new ArrayList<Question>();
-	
+
 	protected Category() {
-		
+
 	}
-	
+
 	public Category(String name) {
 		this.name = name;
 	}
@@ -37,20 +37,20 @@ public class Category {
 	public Long getId() {
 		return id;
 	}
-	
+
 	public String getName() {
 		return name;
 	}
-	
+
 	public List<Question> getQuestions() {
 		return Collections.unmodifiableList(questions);
 	}
-	
+
 	public void addQuestion(Question question) {
 		questions.add(question);
 		question.setCategory(this);
 	}
-	
+
 	public void removeQuestion(Question question) {
 		questions.remove(question);
 	}

@@ -7,7 +7,6 @@ public class User {
 	private static final String NO_NAME = "anonimous";
 	private static final String NO_PHOTO = "http://placehold.it/200x260";
 
-
 	private String id;
 	private String name;
 	private String imageUrl;
@@ -38,41 +37,29 @@ public class User {
 		this.imageUrl = imageUrl;
 	}
 
-	public static User map(Map<String, String> info) {
+	public static User map(Map<String, String> info) throws NullPointerException {
 
-		String uid = null;
-		String name = null;
-		String photoURL = null;
+		String name = NO_NAME;
+		String photoURL = NO_PHOTO;
 
-		if (info.containsKey("uid")) {
-			uid = String.valueOf(info.get("uid"));
-		}
-		if (uid == null || uid.isEmpty()) {
-			return null;
+		if (!info.containsKey(VKUserFields.uid.toString())) {
+			throw new NullPointerException("User uid is empty.");
 		}
 
-		if (info.containsKey("first_name")) {
-			name = info.get("first_name").toString();
-		} else {
-			name  = info.get("last_name").toString();
+		if (info.containsKey(VKUserFields.first_name.toString()) && !info.get(VKUserFields.first_name.toString()).toString().isEmpty()) {
+			name = info.get(VKUserFields.first_name.toString()).toString();
 		}
 
-		if (name == null || name.isEmpty()) {
-			name = NO_NAME;
+		if (info.containsKey(VKUserFields.photo_big.toString()) && !info.get(VKUserFields.photo_big.toString()).toString().isEmpty()) {
+			photoURL = info.get(VKUserFields.photo_big.toString()).toString();
+
+		} else if (info.containsKey(VKUserFields.photo_medium.toString()) && !info.get(VKUserFields.photo_medium.toString()).toString().isEmpty()) {
+			photoURL = info.get(VKUserFields.photo_medium.toString()).toString();
+
+		} else if (info.containsKey(VKUserFields.photo.toString()) && !info.get(VKUserFields.photo.toString()).toString().isEmpty()) {
+			photoURL = info.get(VKUserFields.photo.toString()).toString();
 		}
 
-		if (info.containsKey("photo_big")) {
-			photoURL = info.get("photo_big").toString();
-		} else if (info.containsKey("photo_medium")) {
-			photoURL = info.get("photo_medium").toString();
-		} else if (info.containsKey("photo")) {
-			photoURL = info.get("photo").toString();
-		}
-
-		if (photoURL == null || photoURL.isEmpty()) {
-			photoURL = NO_PHOTO;
-		}
-
-		return new User(uid, name, photoURL);
+		return new User(String.valueOf(info.get(VKUserFields.uid.toString())), name, photoURL);
 	}
 }

@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.couple.web.dto.User;
+import com.couple.web.dto.VKUserFields;
 
 @Controller
 public class ChoosePartner extends BaseVKController {
@@ -31,11 +32,11 @@ public class ChoosePartner extends BaseVKController {
 
 	private Map getUserInfo(String uid) throws ClientProtocolException, IOException {
 		TreeMap<String, String> params = new TreeMap<String, String>();
-		params.put("api_id", "2857279");
+		params.put("api_id", API_ID);
 		params.put("method", "users.get");
-		params.put("format", "json");
-		params.put("fields", "uid,first_name,last_name,photo,photo_medium,photo_big,sex");
-		params.put("v", "3.0");
+		params.put("format", API_FORMAT);
+		params.put("fields", VKUserFields.getList());
+		params.put("v", API_VER);
 		params.put("uids", uid);
 		ObjectMapper mapper = new ObjectMapper(); // can reuse, share globally
 		ArrayList response = ((ArrayList) mapper.readValue(request(params), Map.class).get("response"));
@@ -51,12 +52,12 @@ public class ChoosePartner extends BaseVKController {
 		List<Map> result = new LinkedList();
 
 		TreeMap<String, String> params = new TreeMap<String, String>();
-		params.put("api_id", "2857279");
+		params.put("api_id", API_ID);
 		params.put("method", "friends.get");
-		params.put("v", "3.0");
-		params.put("format", "json");
+		params.put("v", API_VER);
+		params.put("format", API_FORMAT);
 		params.put("uid", viewerID);
-		params.put("fields", "uid,first_name,last_name,photo,sex");
+		params.put("fields", VKUserFields.getList());
 		params.put("count", Integer.toString(step));
 		// params.put("name_case", "nom");
 		// params.put("offset", "0");
@@ -71,7 +72,7 @@ public class ChoosePartner extends BaseVKController {
 			String friendsListAsJSON = request(params);
 			friendsList = mapper.readValue(friendsListAsJSON, Map.class);
 			for (Map friend : (ArrayList<LinkedHashMap>) friendsList.get("response")) {
-				Object friendSex = friend.get("sex");
+				Object friendSex = friend.get(VKUserFields.sex.toString());
 				if (friendSex.equals(sex) || friendSex.equals(SEX_NOT_SET) || sex.equals(SEX_NOT_SET)) {
 					result.add(friend);
 				}
@@ -81,8 +82,7 @@ public class ChoosePartner extends BaseVKController {
 		return result;
 	}
 
-
-
+	/*
 	private String friends_getAppUsers(String viewerID) throws ClientProtocolException, IOException {
 		TreeMap<String, String> params = new TreeMap<String, String>();
 		params.put("api_id", "2857279");
@@ -92,7 +92,7 @@ public class ChoosePartner extends BaseVKController {
 		String result = "friends_getAppUsers: " + request(params);
 		return result;
 	}
-
+*/
 	public User getUser(String userId) throws ClientProtocolException, IOException {
 		return User.map(getUserInfo(userId));
 	}
@@ -104,7 +104,7 @@ public class ChoosePartner extends BaseVKController {
 		String viewerID = request.getParameter("viewer_id");
 
 		Map currentUser = getUserInfo(viewerID);
-		Integer sex = (Integer) currentUser.get("sex");
+		Integer sex = (Integer) currentUser.get(VKUserFields.sex.toString());
 		int sexParam = SEX_NOT_SET;
 		if (sex.equals(SEX_MALE))
 			sexParam = SEX_FEMALE;
