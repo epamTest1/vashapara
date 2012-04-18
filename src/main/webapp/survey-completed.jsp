@@ -30,7 +30,72 @@
 
 </header>
 <div class="main span10" role="main">
-	Coming soon )))
+	<ul class="thumbnails">
+		<li class="span3">
+			<h2 class="user-name">Ваня</h2>
+			<a href="#" class="thumbnail">
+				<img src="http://placehold.it/200x260" alt="Ваня">
+			</a>
+		</li>
+
+		<li class="span4">
+			<div class="rank">146%</div>
+		</li>
+
+		<li class="span3">
+			<h2 class="user-name">Витя</h2>
+			<a href="#" class="thumbnail">
+				<img src="http://placehold.it/200x260" alt="Аня">
+			</a>
+		</li>
+	</ul>
+
+		<h4 class="result-title">Title</h4>
+
+	<ul class="result-list result-list__first span5">
+		<li>
+			<div class="smile-icon">
+				<img src="http://placehold.it/50x50" alt="Smile"><br/>
+				<small>Smile description</small>
+			</div>
+			<div class="question">
+				<div class="question-text">Question text</div>
+				<small>Small description</small>
+			</div>
+		</li>
+		<li>
+			<div class="smile-icon">
+				<img src="http://placehold.it/50x50" alt="Smile"><br/>
+				<small>Smile description</small>
+			</div>
+			<div class="question">
+				<div class="question-text">Question text</div>
+				<small>Small description</small>
+			</div>
+		</li>
+	</ul>
+	<ul class="result-list span5">
+		<li>
+			<div class="smile-icon">
+				<img src="http://placehold.it/50x50" alt="Smile"><br/>
+				<small>Smile description</small>
+			</div>
+			<div class="question">
+				<div class="question-text">Question text</div>
+				<small>Small description</small>
+			</div>
+		</li>
+		<li>
+			<div class="smile-icon">
+				<img src="http://placehold.it/50x50" alt="Smile"><br/>
+				<small>Smile description</small>
+			</div>
+			<div class="question">
+				<div class="question-text">Question text</div>
+				<small>Small description</small>
+			</div>
+		</li>
+	</ul>
 </div><!-- /.main -->
 <footer>
 
