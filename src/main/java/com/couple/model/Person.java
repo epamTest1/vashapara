@@ -17,9 +17,6 @@ public class Person {
 	
 	@Column(name = "INTERNAL_ID")
 	private String externalId;
-	
-	@Column(name = "SCORE")
-	private Double score;
 
 	public Long getId() {
 		return id;
@@ -31,13 +28,5 @@ public class Person {
 
 	public void setExternalId(String externalId) {
 		this.externalId = externalId;
-	}
-
-	public Double getScore() {
-		return score;
-	}
-
-	public void setScore(Double score) {
-		this.score = score;
 	}
 }
