@@ -3,6 +3,6 @@ package com.couple.services;
 import com.couple.web.dto.SurveyAnswers;
 
 public interface ResultsService {
-	void saveAnswers(SurveyAnswers answers);
+	long saveAnswers(SurveyAnswers answers);
 
 }

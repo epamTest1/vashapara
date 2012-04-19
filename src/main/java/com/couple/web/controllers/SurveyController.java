@@ -79,13 +79,13 @@ public class SurveyController {
 			}
 		}
 		
-		resultsService.saveAnswers(answers);
+		long coupleId = resultsService.saveAnswers(answers);
 		
-		return new RedirectView("/survey/{myId}/{partnerId}", true);
+		return new RedirectView("/survey/" + coupleId, true);
 	}
 	
-	@RequestMapping(value = "/{myId}/{partnerId}", method = RequestMethod.GET)
-	public String surveyResults(@PathVariable("myId") String myId, @PathVariable("partnerId") String partnerId) {
+	@RequestMapping(value = "/{coupleId}", method = RequestMethod.GET)
+	public String surveyResults(@PathVariable("coupleId") String coupleId) {
 		return "survey-completed";
 	}
 }

@@ -1,6 +1,7 @@
 package com.couple.web.controllers;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -99,10 +100,13 @@ public class SurveyControllerIntegrationTest {
 	
 	@Test
 	public void shouldRedirectToResultsPage() throws Exception {
+		long coupleId = 1;
+		when(resultsService.saveAnswers(any(SurveyAnswers.class))).thenReturn(coupleId);
+		
 		mockMvc.perform(post("/survey/{myId}/{partnerId}", MY_ID, PARTNER_ID)
 				.param("question-1", "NEVER")
 				.param("question-2", "EQUALY")
 				.param("question-3", "OFTEN"))
-			.andExpect(redirectedUrl("/survey/1/2"));
+			.andExpect(redirectedUrl("/survey/" + coupleId));
 	}
 }

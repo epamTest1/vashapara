@@ -2,6 +2,7 @@ package com.couple.web.controllers;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -101,11 +102,15 @@ public class SurveyControllerTest {
 		request.addParameter("question-2", "EQUALY");
 		request.addParameter("question-3", "OFTEN");
 		
+		long coupleId = 1;
+		
+		when(resultsService.saveAnswers(any(SurveyAnswers.class))).thenReturn(coupleId);
+		
 		View view = controller.completeSurvey(MY_ID, PARTNER_ID, request);
 		
 		assertTrue(view instanceof RedirectView);
 		
 		RedirectView redirectView = (RedirectView) view;
-		assertEquals("/survey/{myId}/{partnerId}", redirectView.getUrl());
+		assertEquals("/survey/" + coupleId, redirectView.getUrl());
 	}
 }

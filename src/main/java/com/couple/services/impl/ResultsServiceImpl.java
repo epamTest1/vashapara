@@ -9,7 +9,7 @@ import com.couple.web.dto.SurveyAnswers;
 public class ResultsServiceImpl implements ResultsService {
 
 	@Override
-	public void saveAnswers(SurveyAnswers answers) {
-		// TODO Auto-generated method stub
+	public long saveAnswers(SurveyAnswers answers) {
+		return 0;
 	}
 }
