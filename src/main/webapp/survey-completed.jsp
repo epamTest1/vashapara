@@ -1,4 +1,4 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page language="java" contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
@@ -34,23 +34,23 @@
 		<li class="span3">
 			<h2 class="user-name">${me.name}</h2>
 			<a href="#" class="thumbnail">
-				<img src="http://placehold.it/200x260" alt="Ваня">
+				<img width="200" src="${me.imageUrl}" alt="${me.name}">
 			</a>
 		</li>
 
 		<li class="span4">
-			<div class="rank">146%</div>
+			<div class="rank">${percent}%</div>
 		</li>
 
 		<li class="span3">
-			<h2 class="user-name">Витя</h2>
+			<h2 class="user-name">${partner.name}</h2>
 			<a href="#" class="thumbnail">
-				<img src="http://placehold.it/200x260" alt="Аня">
+				<img width="200" src="${partner.imageUrl}" alt="${partner.name}">
 			</a>
 		</li>
 	</ul>
 
-		<h4 class="result-title">Title</h4>
+		<h4 class="result-title"><c:out value="${judgment}"/></h4>
 
 	<ul class="result-list result-list__first span5">
 		<li>
