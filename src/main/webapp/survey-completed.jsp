@@ -32,7 +32,7 @@
 <div class="main span10" role="main">
 	<ul class="thumbnails">
 		<li class="span3">
-			<h2 class="user-name">Ваня</h2>
+			<h2 class="user-name">${me.name}</h2>
 			<a href="#" class="thumbnail">
 				<img src="http://placehold.it/200x260" alt="Ваня">
 			</a>

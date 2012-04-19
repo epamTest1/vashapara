@@ -27,18 +27,18 @@ import com.couple.web.dto.SurveyAnswers;
 @Controller
 @RequestMapping("/survey")
 public class SurveyController {
-	
+
 	private CategoryService categoryService;
-	
+
 	private ChoosePartner choosePartner;
-	
+
 	private ResultsService resultsService;
-	
+
 	@Autowired
 	public void setCategoryService(CategoryService categoryService) {
 		this.categoryService = categoryService;
 	}
-	
+
 	@Autowired
 	public void setChoosePartner(ChoosePartner choosePartner) {
 		this.choosePartner = choosePartner;
@@ -48,44 +48,39 @@ public class SurveyController {
 	public void setResultsService(ResultsService resultsService) {
 		this.resultsService = resultsService;
 	}
-	
+
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView getSurveyForm(@RequestParam("myId") String myId, @RequestParam("partnerId") String partnerId) {
 		ModelAndView modelAndView = new ModelAndView("survey");
 		modelAndView.addObject("categories", categoryService.getCategories());
-		
+
 		try {
 			modelAndView.addObject("me", choosePartner.getUser(myId));
 			modelAndView.addObject("partner", choosePartner.getUser(partnerId));
 		}
 		catch (IOException e) {
 		}
-		
+
 		return modelAndView;
 	}
-	
+
 	@RequestMapping(value = "/{myId}/{partnerId}", method = RequestMethod.POST)
 	public View completeSurvey(@PathVariable("myId") String myId, @PathVariable("partnerId") String partnerId, HttpServletRequest request) {
 		SurveyAnswers answers = new SurveyAnswers(myId, partnerId);
-		
+
 		@SuppressWarnings("unchecked")
 		List<String> parameterNames = (List<String>) Collections.list(request.getParameterNames());
 		for(String name: parameterNames) {
 			if (name.startsWith("question-")) {
 				int questionId = Integer.valueOf(name.substring("question-".length()));
 				Answer questionAnswer = Answer.valueOf(request.getParameter(name));
-				
+
 				answers.addAnswer(questionId, questionAnswer);
 			}
 		}
-		
+
 		long coupleId = resultsService.saveAnswers(answers);
-		
-		return new RedirectView("/survey/" + coupleId, true);
-	}
-	
-	@RequestMapping(value = "/{coupleId}", method = RequestMethod.GET)
-	public String surveyResults(@PathVariable("coupleId") String coupleId) {
-		return "survey-completed";
+
+		return new RedirectView("/survey-completed/" + coupleId, true);
 	}
 }

@@ -31,15 +31,15 @@ import com.couple.web.dto.User;
 public class SurveyControllerTest {
 	private static final String MY_ID = "1";
 	private static final String PARTNER_ID = "2";
-	
+
 	private ResultsService resultsService = mock(ResultsService.class);
 	private CategoryService categoryService = mock(CategoryService.class);
 	private ChoosePartner choosePartner = mock(ChoosePartner.class);
-	
+
 	private MockHttpServletRequest request = new MockHttpServletRequest();
-	
+
 	private SurveyController controller;
-	
+
 
 	@Before
 	public void setUp() {
@@ -48,69 +48,69 @@ public class SurveyControllerTest {
 		controller.setResultsService(resultsService);
 		controller.setChoosePartner(choosePartner);
 	}
-	
+
 	@Test
 	public void shouldFillModelForSurveyForm() throws IOException {
 		List<Category> categories = Arrays.asList(new Category("dummy"));
 		User me = new User(MY_ID, "dummy", "");
 		User partner = new User(PARTNER_ID, "dummy", "");
-		
+
 		when(categoryService.getCategories()).thenReturn(categories);
 		when(choosePartner.getUser(MY_ID)).thenReturn(me);
 		when(choosePartner.getUser(PARTNER_ID)).thenReturn(partner);
-		
+
 		ModelAndView modelAndView = controller.getSurveyForm(MY_ID, PARTNER_ID);
-		
+
 		assertEquals(categories, modelAndView.getModel().get("categories"));
 		assertEquals(me, modelAndView.getModel().get("me"));
 		assertEquals(partner, modelAndView.getModel().get("partner"));
 	}
-	
+
 	@Test
 	public void shouldRenderSurveyForm() {
 		ModelAndView modelAndView = controller.getSurveyForm(MY_ID, PARTNER_ID);
 		assertEquals("survey", modelAndView.getViewName());
 	}
-	
+
 	@Test
 	public void shouldPassResultsToService() {
 		request.addParameter("question-1", "NEVER");
 		request.addParameter("question-2", "EQUALY");
 		request.addParameter("question-3", "OFTEN");
-		
+
 		controller.completeSurvey(MY_ID, PARTNER_ID, request);
-		
+
 		ArgumentCaptor<SurveyAnswers> answersCaptor = ArgumentCaptor.forClass(SurveyAnswers.class);
-		
+
 		verify(resultsService).saveAnswers(answersCaptor.capture());
-		
+
 		SurveyAnswers answers = answersCaptor.getValue();
 		assertEquals(MY_ID, answers.getUserId());
 		assertEquals(PARTNER_ID, answers.getPartnerId());
-		
+
 		Map<Integer, Answer> expectedAnswers = new HashMap<Integer, Answer>();
 		expectedAnswers.put(1, Answer.NEVER);
 		expectedAnswers.put(2, Answer.EQUALY);
 		expectedAnswers.put(3, Answer.OFTEN);
-		
+
 		assertEquals(expectedAnswers, answers.getAnswers());
 	}
-	
+
 	@Test
 	public void shouldRedirectToResultsPage() {
 		request.addParameter("question-1", "NEVER");
 		request.addParameter("question-2", "EQUALY");
 		request.addParameter("question-3", "OFTEN");
-		
+
 		long coupleId = 1;
-		
+
 		when(resultsService.saveAnswers(any(SurveyAnswers.class))).thenReturn(coupleId);
-		
+
 		View view = controller.completeSurvey(MY_ID, PARTNER_ID, request);
-		
+
 		assertTrue(view instanceof RedirectView);
-		
+
 		RedirectView redirectView = (RedirectView) view;
-		assertEquals("/survey/" + coupleId, redirectView.getUrl());
+		assertEquals("/survey-completed/" + coupleId, redirectView.getUrl());
 	}
 }
