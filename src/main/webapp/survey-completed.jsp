@@ -50,52 +50,44 @@
 		</li>
 	</ul>
 
-		<h4 class="result-title"><c:out value="${judgment}"/></h4>
+		<h4 class="result-title">${judgment}</h4>
+
 
 	<ul class="result-list result-list__first span5">
 		<li>
 			<div class="smile-icon">
-				<img src="http://placehold.it/50x50" alt="Smile"><br/>
-				<small>Smile description</small>
-			</div>
-			<div class="question">
-				<div class="question-text">Question text</div>
-				<small>Small description</small>
+				<img width="75" src="/img/positive.jpg" alt="Positive"><br/>
+				<small>Совпадение</small>
 			</div>
 		</li>
+
+	<c:forEach var="result" items="${positiveAnswers}">
 		<li>
-			<div class="smile-icon">
-				<img src="http://placehold.it/50x50" alt="Smile"><br/>
-				<small>Smile description</small>
-			</div>
 			<div class="question">
-				<div class="question-text">Question text</div>
-				<small>Small description</small>
+				<div class="question-text">${result.question}</div>
+				<small>${result.description}</small>
 			</div>
 		</li>
+	</c:forEach>
 	</ul>
+
 	<ul class="result-list span5">
 		<li>
 			<div class="smile-icon">
-				<img src="http://placehold.it/50x50" alt="Smile"><br/>
-				<small>Smile description</small>
-			</div>
-			<div class="question">
-				<div class="question-text">Question text</div>
-				<small>Small description</small>
+				<img width="75" src="/img/negative.jpg" alt="Positive"><br/>
+				<small>Несовпадения</small>
 			</div>
 		</li>
+			<c:forEach var="result" items="${negativeAnswers}">
 		<li>
-			<div class="smile-icon">
-				<img src="http://placehold.it/50x50" alt="Smile"><br/>
-				<small>Smile description</small>
-			</div>
 			<div class="question">
-				<div class="question-text">Question text</div>
-				<small>Small description</small>
+				<div class="question-text">${result.question}</div>
+				<small>${result.description}</small>
 			</div>
 		</li>
+	</c:forEach>
 	</ul>
+
 </div><!-- /.main -->
 <footer>
 
