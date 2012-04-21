@@ -78,6 +78,7 @@ public class SurveyResultController {
 	}
 	
 	private String transformString(String s) {
-		return new String(s.getBytes(Charset.forName("windows-1251")), Charset.forName("UTF-8"));
+//		return new String(s.getBytes(Charset.forName("windows-1251")), Charset.forName("UTF-8"));
+		return s;
 	}
 }
