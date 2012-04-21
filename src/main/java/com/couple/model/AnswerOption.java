@@ -1,5 +1,5 @@
 package com.couple.model;
 
-public enum Answer {
+public enum AnswerOption {
 	NEVER, SOMETIMES, EQUALY, OFTEN, ALWAYS
 }

@@ -21,7 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.view.RedirectView;
 
-import com.couple.model.Answer;
+import com.couple.model.AnswerOption;
 import com.couple.model.Category;
 import com.couple.services.CategoryService;
 import com.couple.services.ResultsService;
@@ -88,10 +88,10 @@ public class SurveyControllerTest {
 		assertEquals(MY_ID, answers.getUserId());
 		assertEquals(PARTNER_ID, answers.getPartnerId());
 
-		Map<Integer, Answer> expectedAnswers = new HashMap<Integer, Answer>();
-		expectedAnswers.put(1, Answer.NEVER);
-		expectedAnswers.put(2, Answer.EQUALY);
-		expectedAnswers.put(3, Answer.OFTEN);
+		Map<Integer, AnswerOption> expectedAnswers = new HashMap<Integer, AnswerOption>();
+		expectedAnswers.put(1, AnswerOption.NEVER);
+		expectedAnswers.put(2, AnswerOption.EQUALY);
+		expectedAnswers.put(3, AnswerOption.OFTEN);
 
 		assertEquals(expectedAnswers, answers.getAnswers());
 	}

@@ -17,7 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.view.RedirectView;
 
-import com.couple.model.Answer;
+import com.couple.model.AnswerOption;
 import com.couple.services.CategoryService;
 
 import com.couple.services.ResultsService;
@@ -73,7 +73,7 @@ public class SurveyController {
 		for(String name: parameterNames) {
 			if (name.startsWith("question-")) {
 				int questionId = Integer.valueOf(name.substring("question-".length()));
-				Answer questionAnswer = Answer.valueOf(request.getParameter(name));
+				AnswerOption questionAnswer = AnswerOption.valueOf(request.getParameter(name));
 
 				answers.addAnswer(questionId, questionAnswer);
 			}
