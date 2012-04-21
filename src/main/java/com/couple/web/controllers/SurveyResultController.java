@@ -1,7 +1,7 @@
 package com.couple.web.controllers;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
+import java.nio.charset.Charset;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,32 +52,32 @@ public class SurveyResultController {
 
 		int percent = new Random().nextInt(100);
 		modelAndView.addObject("percent", percent);
-		try {
-			modelAndView.addObject("judgment", getJudgment(percent));
-		}
-		catch (UnsupportedEncodingException e) {
-		}
+		modelAndView.addObject("judgment", getJudgment(percent));
 
 		return modelAndView;
 	}
 
-	private String getJudgment(int percent) throws UnsupportedEncodingException {
+	private String getJudgment(int percent) {
 		String in = null;
 		if (percent < 15) {
-			in = new String("Вы совершенно не понимаете друг друга. Но противоположности притягиваются, не правда ли ?".getBytes("windows-1251"), "UTF8");
+			in = transformString("Вы совершенно не понимаете друг друга. Но противоположности притягиваются, не правда ли ?");
 		} else if (percent < 30) {
-			in = new String("Уровень взаимопонимания между вами крайне низок. Возможно, кто то из вас очень эгоистичен.".getBytes("windows-1251"), "UTF8");;
+			in = transformString("Уровень взаимопонимания между вами крайне низок. Возможно, кто то из вас очень эгоистичен.");
 		} else if (percent < 45) {
-			in = new String("Каждый из Вас считает что именно он делает все, а партнер лентяй. Нехватка откровенности ?".getBytes("windows-1251"), "UTF8");;
+			in = transformString("Каждый из Вас считает что именно он делает все, а партнер лентяй. Нехватка откровенности ?");
 		} else if (percent < 60) {
-			in = new String("Вы типичная современная пара. Обходите острые углы, ловя счастливые моменты.".getBytes("windows-1251"), "UTF8");;
+			in = transformString("Вы типичная современная пара. Обходите острые углы, ловя счастливые моменты.");
 		} else if (percent < 75) {
-			in = new String("Ваши отношения просто отличные. Похоже, что Вы отлично знаете друг друга.".getBytes("windows-1251"), "UTF8");;
+			in = transformString("Ваши отношения просто отличные. Похоже, что Вы отлично знаете друг друга.");
 		} else if (percent < 90) {
-			in = new String("Крайне крепкая пара. Просто молодцы.".getBytes("windows-1251"), "UTF8");;
+			in = transformString("Крайне крепкая пара. Просто молодцы.");
 		} else {
-			in = new String("Уникально. Такое взаимопонимание крайне редко встречается. Похоже, вы нашли свою половинку.".getBytes("windows-1251"), "UTF8");;
+			in = transformString("Уникально. Такое взаимопонимание крайне редко встречается. Похоже, вы нашли свою половинку.");
 		}
 		return in;
+	}
+	
+	private String transformString(String s) {
+		return new String(s.getBytes(Charset.forName("windows-1251")), Charset.forName("UTF-8"));
 	}
 }
