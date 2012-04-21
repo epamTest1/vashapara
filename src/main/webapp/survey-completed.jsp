@@ -50,9 +50,10 @@
 		</li>
 	</ul>
 
-		<h4 class="result-title">${judgment}</h4>
+	<h4 class="result-title">${judgment}</h4>
 
-
+	<%-- Commented out for now. I am not sure if we gonna show anything in this section --%>
+	<%-- 
 	<ul class="result-list result-list__first span5">
 		<li>
 			<div class="smile-icon">
@@ -87,7 +88,7 @@
 		</li>
 	</c:forEach>
 	</ul>
-
+	--%>
 </div><!-- /.main -->
 <footer>
 
