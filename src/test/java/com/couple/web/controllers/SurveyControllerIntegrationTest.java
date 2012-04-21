@@ -34,7 +34,7 @@ public class SurveyControllerIntegrationTest {
 
 	private CategoryService categoryService = mock(CategoryService.class);
 	private ResultsService resultsService = mock(ResultsService.class);
-	private ChoosePartner choosePartner = mock(ChoosePartner.class);
+	private ChoosePartnerController choosePartner = mock(ChoosePartnerController.class);
 
 	private MockMvc mockMvc;
 

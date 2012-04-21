@@ -30,7 +30,7 @@ public class SurveyController {
 
 	private CategoryService categoryService;
 
-	private ChoosePartner choosePartner;
+	private ChoosePartnerController choosePartner;
 
 	private ResultsService resultsService;
 
@@ -40,7 +40,7 @@ public class SurveyController {
 	}
 
 	@Autowired
-	public void setChoosePartner(ChoosePartner choosePartner) {
+	public void setChoosePartner(ChoosePartnerController choosePartner) {
 		this.choosePartner = choosePartner;
 	}
 

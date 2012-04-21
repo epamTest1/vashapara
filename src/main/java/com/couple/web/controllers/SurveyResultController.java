@@ -17,12 +17,12 @@ import com.couple.services.ResultsService;
 @RequestMapping("/survey-completed")
 public class SurveyResultController {
 
-	private ChoosePartner choosePartner;
+	private ChoosePartnerController choosePartner;
 
 	private ResultsService resultsService;
 
 	@Autowired
-	public void setChoosePartner(ChoosePartner choosePartner) {
+	public void setChoosePartner(ChoosePartnerController choosePartner) {
 		this.choosePartner = choosePartner;
 	}
 

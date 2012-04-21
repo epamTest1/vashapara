@@ -23,7 +23,7 @@ import com.couple.web.dto.User;
 import com.couple.web.dto.VKUserFields;
 
 @Controller
-public class ChoosePartner extends BaseVKController {
+public class ChoosePartnerController extends BaseVKController {
 
 	private final int MAX_FRIENDS_TO_RECEIVE_FROM_API = 20;
 	private final int SEX_MALE = 2;
