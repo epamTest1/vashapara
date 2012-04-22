@@ -9,7 +9,7 @@ import com.couple.model.AnswerOption;
 public class SurveyAnswers {
 	private final String userId;
 	private final String partnerId;
-	private final Map<Integer, AnswerOption> answers = new HashMap<Integer, AnswerOption>();
+	private final Map<Long, AnswerOption> answers = new HashMap<Long, AnswerOption>();
 	
 	public SurveyAnswers(String userId, String partnerId) {
 		this.userId = userId;
@@ -24,11 +24,11 @@ public class SurveyAnswers {
 		return partnerId;
 	}
 
-	public Map<Integer, AnswerOption> getAnswers() {
+	public Map<Long, AnswerOption> getAnswers() {
 		return Collections.unmodifiableMap(answers);
 	}
 	
-	public void addAnswer(int questionId, AnswerOption answer) {
+	public void addAnswer(long questionId, AnswerOption answer) {
 		answers.put(questionId, answer);
 	}
 }

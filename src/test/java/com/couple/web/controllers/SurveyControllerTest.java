@@ -88,10 +88,10 @@ public class SurveyControllerTest {
 		assertEquals(MY_ID, answers.getUserId());
 		assertEquals(PARTNER_ID, answers.getPartnerId());
 
-		Map<Integer, AnswerOption> expectedAnswers = new HashMap<Integer, AnswerOption>();
-		expectedAnswers.put(1, AnswerOption.NEVER);
-		expectedAnswers.put(2, AnswerOption.EQUALY);
-		expectedAnswers.put(3, AnswerOption.OFTEN);
+		Map<Long, AnswerOption> expectedAnswers = new HashMap<Long, AnswerOption>();
+		expectedAnswers.put(1L, AnswerOption.NEVER);
+		expectedAnswers.put(2L, AnswerOption.EQUALY);
+		expectedAnswers.put(3L, AnswerOption.OFTEN);
 
 		assertEquals(expectedAnswers, answers.getAnswers());
 	}
