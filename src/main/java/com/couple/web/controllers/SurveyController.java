@@ -81,6 +81,6 @@ public class SurveyController {
 
 		long coupleId = resultsService.saveAnswers(answers);
 
-		return new RedirectView("/survey-completed/" + coupleId, true);
+		return new RedirectView("/survey-completed/" + myId + "/" + coupleId, true);
 	}
 }

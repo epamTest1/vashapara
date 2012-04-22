@@ -1,8 +1,6 @@
 package com.couple.web.controllers;
 
 import java.io.IOException;
-import java.nio.charset.Charset;
-import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.couple.services.ResultsService;
+import com.couple.web.dto.SurveyResults;
 
 @Controller
 @RequestMapping("/survey-completed")
@@ -31,30 +30,29 @@ public class SurveyResultController {
 		this.resultsService = resultsService;
 	}
 
-	@RequestMapping(value="/{coupleId}", method=RequestMethod.GET)
-	public ModelAndView getResultView(@PathVariable("coupleId") String coupleId) {
+	@RequestMapping(value="{myId}/{coupleId}", method=RequestMethod.GET)
+	public ModelAndView getResultView(@PathVariable("myId") String myId, @PathVariable("coupleId") long coupleId) throws IOException {
 
-		ModelAndView modelAndView = new ModelAndView("survey-completed");
+		// TODO: we should use provided id. 168962961 is for testing purposes only
+		SurveyResults results = resultsService.getSurveyResults(coupleId, "168962961");
+		
+		if (results.isSurveyCompleted()) {
+			ModelAndView modelAndView = new ModelAndView("survey-completed");
+			
+//			modelAndView.addObject("positiveAnswers", resultsService.getResults(true));
+//			modelAndView.addObject("negativeAnswers", resultsService.getResults(false));
+			
+			modelAndView.addObject("me", choosePartner.getUser(results.getMyId()));
+			modelAndView.addObject("partner", choosePartner.getUser(results.getPartnerId()));
+			
+			int percent = results.getMatchPercentage();
+			modelAndView.addObject("percent", percent);
+			modelAndView.addObject("judgment", getJudgment(percent));
 
-		modelAndView.addObject("positiveAnswers", resultsService.getResults(true));
-		modelAndView.addObject("negativeAnswers", resultsService.getResults(false));
-
-		//JUst for test only
-		String myId = "168962961";
-		String partnerId = "170020609";
-
-		try {
-			modelAndView.addObject("me", choosePartner.getUser(myId));
-			modelAndView.addObject("partner", choosePartner.getUser(partnerId));
+			return modelAndView;
+		} else {
+			return new ModelAndView("wait-for-partner");
 		}
-		catch (IOException e) {
-		}
-
-		int percent = new Random().nextInt(100);
-		modelAndView.addObject("percent", percent);
-		modelAndView.addObject("judgment", getJudgment(percent));
-
-		return modelAndView;
 	}
 
 	private String getJudgment(int percent) {

@@ -111,6 +111,6 @@ public class SurveyControllerTest {
 		assertTrue(view instanceof RedirectView);
 
 		RedirectView redirectView = (RedirectView) view;
-		assertEquals("/survey-completed/" + coupleId, redirectView.getUrl());
+		assertEquals("/survey-completed/" + MY_ID + "/" + coupleId, redirectView.getUrl());
 	}
 }
