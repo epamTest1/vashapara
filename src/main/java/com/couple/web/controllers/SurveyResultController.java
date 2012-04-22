@@ -32,9 +32,7 @@ public class SurveyResultController {
 
 	@RequestMapping(value="{myId}/{coupleId}", method=RequestMethod.GET)
 	public ModelAndView getResultView(@PathVariable("myId") String myId, @PathVariable("coupleId") long coupleId) throws IOException {
-
-		// TODO: we should use provided id. 168962961 is for testing purposes only
-		SurveyResults results = resultsService.getSurveyResults(coupleId, "168962961");
+		SurveyResults results = resultsService.getSurveyResults(coupleId, myId);
 		
 		if (results.isSurveyCompleted()) {
 			ModelAndView modelAndView = new ModelAndView("survey-completed");
