@@ -47,7 +47,7 @@ public class ChoosePartnerController extends BaseVKController {
 	}
 
 	// sex: 1 - женский, 2 - мужской, 0 - без указания пола.
-	private List<Map> friends_get(String viewerID, int step, Integer sex) throws ClientProtocolException, IOException {
+	private List<Map> getFriends(String viewerID, int step, Integer sex) throws ClientProtocolException, IOException {
 		ObjectMapper mapper = new ObjectMapper(); // can reuse, share globally
 		List<Map> result = new LinkedList();
 
@@ -92,7 +92,8 @@ public class ChoosePartnerController extends BaseVKController {
 		String result = "friends_getAppUsers: " + request(params);
 		return result;
 	}
-*/
+	*/
+	
 	public User getUser(String userId) throws ClientProtocolException, IOException {
 		return User.map(getUserInfo(userId));
 	}
@@ -114,7 +115,7 @@ public class ChoosePartnerController extends BaseVKController {
 		res.setViewName("choose-partner");
 
 		res.addObject("myId", viewerID);
-		List<Map> friendsList = friends_get(viewerID, MAX_FRIENDS_TO_RECEIVE_FROM_API, sexParam);
+		List<Map> friendsList = getFriends(viewerID, MAX_FRIENDS_TO_RECEIVE_FROM_API, sexParam);
 		res.addObject("friendsList", friendsList);
 
 		return res;
