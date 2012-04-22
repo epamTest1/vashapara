@@ -17,4 +17,16 @@ public class CoupleInMemoryDao implements CoupleDao {
 		
 		return couple;
 	}
+	
+	@Override
+	public Couple findForPartners(String firstPartner, String secondPartner) {
+		return null;
+	}
+	
+	@Override
+	public Couple create(String firstPartner, String secondPartner) {
+		Couple couple = new Couple("168962961", "170020609");
+		couple.setId(100L);
+		return couple;
+	}
 }

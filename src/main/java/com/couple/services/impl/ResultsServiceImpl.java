@@ -3,10 +3,12 @@ package com.couple.services.impl;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.couple.model.AnswerOption;
 import com.couple.model.Couple;
 import com.couple.model.Result;
 import com.couple.persistence.CoupleDao;
@@ -25,7 +27,22 @@ public class ResultsServiceImpl implements ResultsService {
 	
 	@Override
 	public long saveAnswers(SurveyAnswers answers) {
-		return 0;
+		Couple couple = coupleDao.findForPartners(answers.getUserId(), answers.getPartnerId());
+		if (couple == null) {
+			couple = coupleDao.create(answers.getUserId(), answers.getPartnerId());
+		} else {
+			if (! couple.getAnswersFor(answers.getUserId()).isEmpty()) {
+				throw new RuntimeException();
+			}
+		}
+		
+		for(Map.Entry<Long, AnswerOption> pair: answers.getAnswers().entrySet()) {
+			couple.setAnswer(answers.getUserId(), pair.getKey(), pair.getValue());
+		}
+		
+		couple.calculateScore();
+		
+		return couple.getId();
 	}
 	
 	public SurveyResults getSurveyResults(long coupleId, String currentUserId) {

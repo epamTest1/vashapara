@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.Map;
 
 public class Couple {
+	private Long id;
 	private Collection<String> partnerIds;
 	private Integer score;
 	
@@ -13,6 +14,14 @@ public class Couple {
 	
 	public Couple(String firstPartnerId, String secondPartnerId) {
 		partnerIds = Arrays.asList(firstPartnerId, secondPartnerId);
+	}
+	
+	public Long getId() {
+		return id;
+	}
+	
+	public void setId(long id) {
+		this.id = id;
 	}
 	
 	public Collection<String> getPartnerIds() {
@@ -29,5 +38,14 @@ public class Couple {
 
 	public Map<Long, AnswerOption> getAnswersFor(String partnerId) {
 		return null;
+	}
+
+	public void setAnswer(String partnerId, long questionId, AnswerOption answer) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void calculateScore() {
+		// TODO Auto-generated method stub
 	}
 }
