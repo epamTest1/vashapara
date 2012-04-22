@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 import org.springframework.test.web.server.MockMvc;
@@ -54,6 +55,7 @@ public class SurveyControllerIntegrationTest {
 	}
 
 	@Test
+	@Ignore("This test is an example of spting-mvc-test")
 	public void shouldFillModelForSurveyForm() throws Exception {
 		List<Category> categories = Arrays.asList(new Category("dummy"));
 		User me = new User(MY_ID, "dummy", "");
@@ -70,12 +72,14 @@ public class SurveyControllerIntegrationTest {
 	}
 
 	@Test
+	@Ignore("This test is an example of spting-mvc-test")
 	public void shouldRenderSurveyForm() throws Exception {
 		mockMvc.perform(get("/survey").param("myId", MY_ID).param("partnerId", PARTNER_ID))
 			.andExpect(view().name("survey"));
 	}
 
 	@Test
+	@Ignore("This test is an example of spting-mvc-test")
 	public void shouldPassResultsToService() throws Exception {
 		mockMvc.perform(post("/survey/{myId}/{partnerId}", MY_ID, PARTNER_ID)
 				.param("question-1", "NEVER")
@@ -99,6 +103,7 @@ public class SurveyControllerIntegrationTest {
 	}
 
 	@Test
+	@Ignore("This test is an example of spting-mvc-test")
 	public void shouldRedirectToResultsPage() throws Exception {
 		long coupleId = 1;
 		when(resultsService.saveAnswers(any(SurveyAnswers.class))).thenReturn(coupleId);
