@@ -94,7 +94,7 @@ public class ResultsServiceTest {
 		verify(coupleDao).create(surveyAnswers.getUserId(), surveyAnswers.getPartnerId());
 	}
 	
-	@Test(expected = Exception.class)
+	@Test(expected = RuntimeException.class)
 	public void shouldFailIfSurveyWasAlreadySubmitted() {
 		when(couple.getAnswersFor(surveyAnswers.getUserId())).thenReturn(Collections.singletonMap(1L, AnswerOption.ALWAYS));
 		

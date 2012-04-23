@@ -32,7 +32,7 @@ public class ResultsServiceImpl implements ResultsService {
 			couple = coupleDao.create(answers.getUserId(), answers.getPartnerId());
 		} else {
 			if (! couple.getAnswersFor(answers.getUserId()).isEmpty()) {
-				throw new RuntimeException();
+				throw new RuntimeException("This user has already submitted answers.");
 			}
 		}
 		
