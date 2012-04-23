@@ -11,11 +11,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
-import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.http.client.ClientProtocolException;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -23,6 +24,7 @@ import com.couple.web.dto.User;
 import com.couple.web.dto.VKUserFields;
 
 @Controller
+@RequestMapping("/choose-partner")
 public class ChoosePartnerController extends BaseVKController {
 
 	private final int MAX_FRIENDS_TO_RECEIVE_FROM_API = 20;
@@ -98,13 +100,11 @@ public class ChoosePartnerController extends BaseVKController {
 		return User.map(getUserInfo(userId));
 	}
 
-	@RequestMapping(value = "/", method = GET)
-	public ModelAndView choosePartner(HttpServletRequest request) throws ClientProtocolException, IOException {
-		ModelAndView res = new ModelAndView();
-		apiURL = request.getParameter("api_url");
-		String viewerID = request.getParameter("viewer_id");
-
-		Map currentUser = getUserInfo(viewerID);
+	@RequestMapping(value = "/{myId}", method = GET)
+	public ModelAndView choosePartner(HttpSession session, @PathVariable("myId") String myId) throws IOException {
+		apiURL = (String) session.getAttribute("apiUrl");
+		
+		Map currentUser = getUserInfo(myId);
 		Integer sex = (Integer) currentUser.get(VKUserFields.sex.toString());
 		int sexParam = SEX_NOT_SET;
 		if (sex.equals(SEX_MALE))
@@ -112,10 +112,10 @@ public class ChoosePartnerController extends BaseVKController {
 		else if (sex.equals(SEX_FEMALE))
 			sexParam = SEX_MALE;
 
-		res.setViewName("choose-partner");
-
-		res.addObject("myId", viewerID);
-		List<Map> friendsList = getFriends(viewerID, MAX_FRIENDS_TO_RECEIVE_FROM_API, sexParam);
+		List<Map> friendsList = getFriends(myId, MAX_FRIENDS_TO_RECEIVE_FROM_API, sexParam);
+		
+		ModelAndView res = new ModelAndView("choose-partner");
+		res.addObject("myId", myId);
 		res.addObject("friendsList", friendsList);
 
 		return res;
