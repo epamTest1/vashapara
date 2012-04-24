@@ -21,7 +21,7 @@ import com.couple.web.dto.User;
 import com.couple.web.dto.User.Sex;
 
 public class ChoosePartnerControllerTest {
-	private static final User testUser = new User("2719278", "", "");
+	private static final User testUser = new User("id", "", "");
 	private static final List<Map<String, Object>> testFriends = Collections.emptyList();
 	
 	private final SocialApiService socialApiService = mock(SocialApiService.class);
