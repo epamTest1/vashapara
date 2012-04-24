@@ -14,6 +14,7 @@ import org.junit.Test;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.couple.services.ResultsService;
+import com.couple.services.external.SocialApiService;
 import com.couple.web.dto.SurveyResults;
 import com.couple.web.dto.User;
 
@@ -24,7 +25,7 @@ public class SurveyResultControllerTest {
 	private static final User partner = new User("partner", "test", "");
 	
 	private ResultsService resultsService = mock(ResultsService.class);
-	private ChoosePartnerController choosePartnerController = mock(ChoosePartnerController.class);
+	private SocialApiService socialApiService = mock(SocialApiService.class);
 	
 	private SurveyResults results = mock(SurveyResults.class);
 	
@@ -39,7 +40,7 @@ public class SurveyResultControllerTest {
 		
 		controller = new SurveyResultController();
 		controller.setResultsService(resultsService);
-		controller.setChoosePartner(choosePartnerController);
+		controller.setSocialApiService(socialApiService);
 	}
 	
 	@Test
@@ -54,8 +55,8 @@ public class SurveyResultControllerTest {
 	@Test
 	public void shouldFillOutModel() throws IOException {
 		when(resultsService.getSurveyResults(eq(TEST_COUPLE_ID), anyString())).thenReturn(results);
-		when(choosePartnerController.getUser(me.getId())).thenReturn(me);
-		when(choosePartnerController.getUser(partner.getId())).thenReturn(partner);
+		when(socialApiService.getUser(me.getId())).thenReturn(me);
+		when(socialApiService.getUser(partner.getId())).thenReturn(partner);
 		
 		ModelAndView modelAndView = controller.getResultView(TEST_CURRENT_USER_ID, TEST_COUPLE_ID);
 		

@@ -7,7 +7,6 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -25,6 +24,7 @@ import com.couple.model.AnswerOption;
 import com.couple.model.Category;
 import com.couple.services.CategoryService;
 import com.couple.services.ResultsService;
+import com.couple.services.external.SocialApiService;
 import com.couple.web.dto.SurveyAnswers;
 import com.couple.web.dto.User;
 
@@ -34,30 +34,29 @@ public class SurveyControllerTest {
 
 	private ResultsService resultsService = mock(ResultsService.class);
 	private CategoryService categoryService = mock(CategoryService.class);
-	private ChoosePartnerController choosePartner = mock(ChoosePartnerController.class);
+	private SocialApiService socialApiService = mock(SocialApiService.class);
 
 	private MockHttpServletRequest request = new MockHttpServletRequest();
 
 	private SurveyController controller;
-
 
 	@Before
 	public void setUp() {
 		controller = new SurveyController();
 		controller.setCategoryService(categoryService);
 		controller.setResultsService(resultsService);
-		controller.setChoosePartner(choosePartner);
+		controller.setSocialApiService(socialApiService);
 	}
 
 	@Test
-	public void shouldFillModelForSurveyForm() throws IOException {
+	public void shouldFillModelForSurveyForm() {
 		List<Category> categories = Arrays.asList(new Category("dummy"));
 		User me = new User(MY_ID, "dummy", "");
 		User partner = new User(PARTNER_ID, "dummy", "");
 
 		when(categoryService.getCategories()).thenReturn(categories);
-		when(choosePartner.getUser(MY_ID)).thenReturn(me);
-		when(choosePartner.getUser(PARTNER_ID)).thenReturn(partner);
+		when(socialApiService.getUser(MY_ID)).thenReturn(me);
+		when(socialApiService.getUser(PARTNER_ID)).thenReturn(partner);
 
 		ModelAndView modelAndView = controller.getSurveyForm(MY_ID, PARTNER_ID);
 

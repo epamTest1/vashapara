@@ -26,6 +26,7 @@ import com.couple.model.AnswerOption;
 import com.couple.model.Category;
 import com.couple.services.CategoryService;
 import com.couple.services.ResultsService;
+import com.couple.services.external.SocialApiService;
 import com.couple.web.dto.SurveyAnswers;
 import com.couple.web.dto.User;
 
@@ -35,7 +36,7 @@ public class SurveyControllerIntegrationTest {
 
 	private CategoryService categoryService = mock(CategoryService.class);
 	private ResultsService resultsService = mock(ResultsService.class);
-	private ChoosePartnerController choosePartner = mock(ChoosePartnerController.class);
+	private SocialApiService socialApiService = mock(SocialApiService.class);
 
 	private MockMvc mockMvc;
 
@@ -44,7 +45,6 @@ public class SurveyControllerIntegrationTest {
 		SurveyController controller = new SurveyController();
 		controller.setCategoryService(categoryService);
 		controller.setResultsService(resultsService);
-		controller.setChoosePartner(choosePartner);
 
 		UrlBasedViewResolver resolver = new UrlBasedViewResolver();
 		resolver.setViewClass(JstlView.class);
@@ -62,8 +62,8 @@ public class SurveyControllerIntegrationTest {
 		User partner = new User(PARTNER_ID, "dummy", "");
 
 		when(categoryService.getCategories()).thenReturn(categories);
-		when(choosePartner.getUser(MY_ID)).thenReturn(me);
-		when(choosePartner.getUser(PARTNER_ID)).thenReturn(partner);
+		when(socialApiService.getUser(MY_ID)).thenReturn(me);
+		when(socialApiService.getUser(PARTNER_ID)).thenReturn(partner);
 
 		mockMvc.perform(get("/survey").param("myId", MY_ID).param("partnerId", PARTNER_ID))
 			.andExpect(model().attribute("categories", categories))

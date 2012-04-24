@@ -10,24 +10,25 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.couple.services.ResultsService;
+import com.couple.services.external.SocialApiService;
 import com.couple.web.dto.SurveyResults;
 
 @Controller
 @RequestMapping("/survey-completed")
 public class SurveyResultController {
 
-	private ChoosePartnerController choosePartner;
-
 	private ResultsService resultsService;
-
-	@Autowired
-	public void setChoosePartner(ChoosePartnerController choosePartner) {
-		this.choosePartner = choosePartner;
-	}
+	
+	private SocialApiService socialApiService;
 
 	@Autowired
 	public void setResultsService(ResultsService resultsService) {
 		this.resultsService = resultsService;
+	}
+	
+	@Autowired
+	public void setSocialApiService(SocialApiService socialApiService) {
+		this.socialApiService = socialApiService;
 	}
 
 	@RequestMapping(value="{myId}/{coupleId}", method=RequestMethod.GET)
@@ -40,8 +41,8 @@ public class SurveyResultController {
 //			modelAndView.addObject("positiveAnswers", resultsService.getResults(true));
 //			modelAndView.addObject("negativeAnswers", resultsService.getResults(false));
 			
-			modelAndView.addObject("me", choosePartner.getUser(results.getMyId()));
-			modelAndView.addObject("partner", choosePartner.getUser(results.getPartnerId()));
+			modelAndView.addObject("me", socialApiService.getUser(results.getMyId()));
+			modelAndView.addObject("partner", socialApiService.getUser(results.getPartnerId()));
 			
 			int percent = results.getMatchPercentage();
 			modelAndView.addObject("percent", percent);

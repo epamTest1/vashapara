@@ -3,8 +3,6 @@ package com.couple.web.controllers;
 import java.util.Collections;
 import java.util.List;
 
-import java.io.IOException;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +19,7 @@ import com.couple.model.AnswerOption;
 import com.couple.services.CategoryService;
 
 import com.couple.services.ResultsService;
+import com.couple.services.external.SocialApiService;
 import com.couple.web.dto.SurveyAnswers;
 
 
@@ -30,18 +29,18 @@ public class SurveyController {
 
 	private CategoryService categoryService;
 
-	private ChoosePartnerController choosePartner;
-
 	private ResultsService resultsService;
+	
+	private SocialApiService socialApiService;
 
 	@Autowired
 	public void setCategoryService(CategoryService categoryService) {
 		this.categoryService = categoryService;
 	}
-
+	
 	@Autowired
-	public void setChoosePartner(ChoosePartnerController choosePartner) {
-		this.choosePartner = choosePartner;
+	public void setSocialApiService(SocialApiService socialApiService) {
+		this.socialApiService = socialApiService;
 	}
 
 	@Autowired
@@ -54,12 +53,8 @@ public class SurveyController {
 		ModelAndView modelAndView = new ModelAndView("survey");
 		modelAndView.addObject("categories", categoryService.getCategories());
 
-		try {
-			modelAndView.addObject("me", choosePartner.getUser(myId));
-			modelAndView.addObject("partner", choosePartner.getUser(partnerId));
-		}
-		catch (IOException e) {
-		}
+		modelAndView.addObject("me", socialApiService.getUser(myId));
+		modelAndView.addObject("partner", socialApiService.getUser(partnerId));
 
 		return modelAndView;
 	}
