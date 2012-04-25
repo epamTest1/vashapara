@@ -10,7 +10,6 @@ import static org.mockito.Mockito.when;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -22,7 +21,7 @@ import com.couple.services.external.User.Sex;
 
 public class ChoosePartnerControllerTest {
 	private static final User testUser = new User("id");
-	private static final List<Map<String, Object>> testFriends = Collections.emptyList();
+	private static final List<User> testFriends = Collections.emptyList();
 	
 	private final SocialApiService socialApiService = mock(SocialApiService.class);
 	
@@ -49,7 +48,7 @@ public class ChoosePartnerControllerTest {
 		ModelAndView modelAndView =  controller.choosePartner(testUser.getId());
 		
 		assertEquals(testUser.getId(), modelAndView.getModel().get("myId"));
-		assertEquals(testFriends, modelAndView.getModel().get("friendsList"));
+		assertEquals(testFriends, modelAndView.getModel().get("friends"));
 	}
 	
 	@Test
@@ -77,5 +76,5 @@ public class ChoosePartnerControllerTest {
 		controller.choosePartner(testUser.getId());
 		
 		verify(socialApiService).getFriends(testUser.getId(), Sex.NOT_SET);
-	}	
+	}
 }

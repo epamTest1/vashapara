@@ -56,13 +56,13 @@ class VkApiService implements SocialApiService {
 	}
 	
 	@Override
-	public List<Map<String, Object>> getFriends(String userId, Sex sex) throws SocialApiException {
+	public List<User> getFriends(String userId, Sex sex) {
 		Map<String, String> params = buildRequestParams("friends.get");
 		params.put("uid", userId);
 		params.put("fields", VKUserFields.getList());
 		params.put("count", Integer.toString(MAX_FRIENDS_TO_RECEIVE_FROM_API));
 		
-		List<Map<String, Object>> result = new LinkedList<Map<String, Object>>();
+		List<User> result = new LinkedList<User>();
 		List<Map<String, Object>> response = new ArrayList<Map<String, Object>>();
 		
 		int offset = 0;
@@ -76,7 +76,7 @@ class VkApiService implements SocialApiService {
 					User friend = VkApiService.map(friendMap);
 					
 					if (friend.getSex() == sex || friend.getSex() == Sex.NOT_SET || sex == Sex.NOT_SET) {
-						result.add(friendMap);
+						result.add(friend);
 					}
 				}
 				
@@ -145,16 +145,9 @@ class VkApiService implements SocialApiService {
 		user.setFirstName(String.valueOf(info.get(VKUserFields.FIRST_NAME.toString())));
 		user.setLastName(String.valueOf(info.get(VKUserFields.LAST_NAME.toString())));
 		user.setSex(User.Sex.forCode((Integer) info.get(VKUserFields.SEX.toString())));
-		
-		String photoUrl = null;
-		if (info.containsKey(VKUserFields.PHOTO_BIG.toString()) && !info.get(VKUserFields.PHOTO_BIG.toString()).toString().isEmpty()) {
-			photoUrl = info.get(VKUserFields.PHOTO_BIG.toString()).toString();
-		} else if (info.containsKey(VKUserFields.PHOTO_MEDIUM.toString()) && !info.get(VKUserFields.PHOTO_MEDIUM.toString()).toString().isEmpty()) {
-			photoUrl = info.get(VKUserFields.PHOTO_MEDIUM.toString()).toString();
-		} else if (info.containsKey(VKUserFields.PHOTO.toString()) && !info.get(VKUserFields.PHOTO.toString()).toString().isEmpty()) {
-			photoUrl = info.get(VKUserFields.PHOTO.toString()).toString();
-		}
-		user.setImageUrl(photoUrl);
+		user.setBigPhotoUrl((String) info.get(VKUserFields.PHOTO_BIG.toString()));
+		user.setMediumPhotoUrl((String) info.get(VKUserFields.PHOTO_MEDIUM.toString()));
+		user.setSmallPhotoUrl((String) info.get(VKUserFields.PHOTO.toString()));
 		
 		return user;
 	}

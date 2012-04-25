@@ -33,20 +33,20 @@
 	<form action="${contextPath}/survey" method="get">
 		<fieldset>
 			<div class="friends-list">
-				<c:forEach var="friend" items="${friendsList}" varStatus="friendListStatus">
+				<c:forEach var="friend" items="${friends}" varStatus="friendListStatus">
 					<c:choose>
 						<c:when test="${friendListStatus.count == 1}">
-							<label class="friends-list_item clearfix friends-list_item__first" for="${friend.uid}">
+							<label class="friends-list_item clearfix friends-list_item__first" for="${friend.id}">
 						</c:when>
 						<c:otherwise>
-							<label class="friends-list_item clearfix" for="user-${friend.uid}">
+							<label class="friends-list_item clearfix" for="user-${friend.id}">
 						</c:otherwise>
 					</c:choose>
 								<span class="friends-list_thumbnail thumbnail">
-									<img src="${friend.photo}" alt="${friend.first_name} ${friend.last_name}" width="50">
+									<img src="${friend.smallPhotoUrl}" alt="${friend.firstName} ${friend.lastName}" width="50">
 								</span>
-								<span class="friends-list_name">${friend.first_name} ${friend.last_name}</span>
-								<input id="user-${friend.uid}" class="hidden" name="partnerId" value="${friend.uid}" type="radio" >
+								<span class="friends-list_name">${friend.firstName} ${friend.lastName}</span>
+								<input id="user-${friend.id}" class="hidden" name="partnerId" value="${friend.id}" type="radio" >
 							</label>
 				</c:forEach>
 			</div><!-- /.friends-list -->

@@ -34,7 +34,7 @@
 		<li class="span3">
 			<h2 class="user-name">${me.firstName}</h2>
 			<a href="#" class="thumbnail">
-				<img width="200" src="${me.imageUrl}" alt="${me.firstName}">
+				<img width="200" src="${me.bigPhotoUrl}" alt="${me.firstName}">
 			</a>
 		</li>
 
@@ -43,7 +43,7 @@
 		<li class="span3">
 			<h2 class="user-name">${partner.firstName}</h2>
 			<a href="#" class="thumbnail">
-				<img width="200" src="${partner.imageUrl}" alt="${partner.firstName}">
+				<img width="200" src="${partner.bigPhotoUrl}" alt="${partner.firstName}">
 			</a>
 		</li>
 	</ul>

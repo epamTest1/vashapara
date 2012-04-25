@@ -5,7 +5,9 @@ public class User {
 	private String id;
 	private String firstName;
 	private String lastName;
-	private String imageUrl;
+	private String bigPhotoUrl;
+	private String mediumPhotoUrl;
+	private String smallPhotoUrl;
 	private Sex sex = Sex.NOT_SET;
 
 	public enum Sex {
@@ -41,7 +43,7 @@ public class User {
 	public String getId() {
 		return id;
 	}
-
+	
 	public String getFirstName() {
 		return firstName;
 	}
@@ -58,12 +60,28 @@ public class User {
 		this.lastName = lastName;
 	}
 	
-	public String getImageUrl() {
-		return imageUrl;
+	public String getBigPhotoUrl() {
+		return bigPhotoUrl;
 	}
-
-	public void setImageUrl(String imageUrl) {
-		this.imageUrl = imageUrl;
+	
+	public void setBigPhotoUrl(String bigPhotoUrl) {
+		this.bigPhotoUrl = bigPhotoUrl;
+	}
+	
+	public String getMediumPhotoUrl() {
+		return mediumPhotoUrl;
+	}
+	
+	public void setMediumPhotoUrl(String mediumPhotoUrl) {
+		this.mediumPhotoUrl = mediumPhotoUrl;
+	}
+	
+	public String getSmallPhotoUrl() {
+		return smallPhotoUrl;
+	}
+	
+	public void setSmallPhotoUrl(String smallPhotoUrl) {
+		this.smallPhotoUrl = smallPhotoUrl;
 	}
 	
 	public Sex getSex() {
