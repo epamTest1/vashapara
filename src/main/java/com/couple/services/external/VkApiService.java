@@ -145,20 +145,20 @@ class VkApiService implements SocialApiService {
 	}
 
 	private static User map(Map<String, Object> info) throws NullPointerException {
-		if (!info.containsKey(VKUserFields.uid.name()) || !info.containsKey(VKUserFields.first_name.name())) {
+		if (!info.containsKey(VKUserFields.UID.toString()) || !info.containsKey(VKUserFields.FIRST_NAME.toString())) {
 			throw new NullPointerException("User uid is empty.");
 		}
 		
-		User user = new User(String.valueOf(info.get(VKUserFields.uid.name())), String.valueOf(info.get(VKUserFields.first_name.name())));
-		user.setSex(User.Sex.forCode((Integer) info.get(VKUserFields.sex.name())));
+		User user = new User(String.valueOf(info.get(VKUserFields.UID.toString())), String.valueOf(info.get(VKUserFields.FIRST_NAME.toString())));
+		user.setSex(User.Sex.forCode((Integer) info.get(VKUserFields.SEX.toString())));
 		
 		String photoUrl = null;
-		if (info.containsKey(VKUserFields.photo_big.name()) && !info.get(VKUserFields.photo_big.name()).toString().isEmpty()) {
-			photoUrl = info.get(VKUserFields.photo_big.name()).toString();
-		} else if (info.containsKey(VKUserFields.photo_medium.name()) && !info.get(VKUserFields.photo_medium.name()).toString().isEmpty()) {
-			photoUrl = info.get(VKUserFields.photo_medium.name()).toString();
-		} else if (info.containsKey(VKUserFields.photo.name()) && !info.get(VKUserFields.photo.name()).toString().isEmpty()) {
-			photoUrl = info.get(VKUserFields.photo.name()).toString();
+		if (info.containsKey(VKUserFields.PHOTO_BIG.toString()) && !info.get(VKUserFields.PHOTO_BIG.toString()).toString().isEmpty()) {
+			photoUrl = info.get(VKUserFields.PHOTO_BIG.toString()).toString();
+		} else if (info.containsKey(VKUserFields.PHOTO_MEDIUM.toString()) && !info.get(VKUserFields.PHOTO_MEDIUM.toString()).toString().isEmpty()) {
+			photoUrl = info.get(VKUserFields.PHOTO_MEDIUM.toString()).toString();
+		} else if (info.containsKey(VKUserFields.PHOTO.toString()) && !info.get(VKUserFields.PHOTO.toString()).toString().isEmpty()) {
+			photoUrl = info.get(VKUserFields.PHOTO.toString()).toString();
 		}
 		user.setImageUrl(photoUrl);
 		
