@@ -166,7 +166,7 @@ class VkApiService implements SocialApiService {
 		}
 		
 		User user = new User(String.valueOf(info.get(VKUserFields.uid.toString())), name);
-		user.setSex(User.Sex.forCode1((Integer) info.get(VKUserFields.sex.toString())));
+		user.setSex(User.Sex.forCode((Integer) info.get(VKUserFields.sex.toString())));
 		user.setImageUrl(photoUrl);
 		
 		return user;

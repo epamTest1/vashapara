@@ -22,7 +22,7 @@ public class User {
 			return code;
 		}
 		
-		static Sex forCode1(int code) {
+		static Sex forCode(int code) {
 			for(Sex sex: values()) {
 				if (sex.code == code) {
 					return sex;
