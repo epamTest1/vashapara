@@ -102,8 +102,10 @@ class VkApiService implements SocialApiService {
 	@SuppressWarnings("unchecked")
 	private List<Map<String, Object>> performJsonRequest(Map<String, String> params) throws IOException {
 		ObjectMapper mapper = new ObjectMapper();
-		Map<String, Object> friendsList = mapper.readValue(performRequest(params), Map.class);
-		return (List<Map<String, Object>>) friendsList.get("response");
+		
+		String jsonString = performRequest(params);
+		Map<String, Object> responseList = mapper.readValue(jsonString, Map.class);
+		return (List<Map<String, Object>>) responseList.get("response");
 	}
 	
 	private String performRequest(Map<String, String> params) throws IOException {
@@ -138,7 +140,7 @@ class VkApiService implements SocialApiService {
 		return DigestUtils.md5Hex(data.toString());
 	}
 
-	private static User map(Map<String, Object> info) throws NullPointerException {
+	private static User map(Map<String, Object> info) {
 		User user = new User(String.valueOf(info.get(VKUserFields.UID.toString())), String.valueOf(info.get(VKUserFields.FIRST_NAME.toString())));
 		user.setSex(User.Sex.forCode((Integer) info.get(VKUserFields.SEX.toString())));
 		
