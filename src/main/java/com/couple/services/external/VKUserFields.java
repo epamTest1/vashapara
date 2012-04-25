@@ -2,7 +2,7 @@ package com.couple.services.external;
 
 import org.springframework.util.StringUtils;
 
-public enum VKUserFields {
+enum VKUserFields {
 
 	uid(),
 	first_name(),
