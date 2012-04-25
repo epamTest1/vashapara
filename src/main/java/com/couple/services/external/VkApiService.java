@@ -145,10 +145,6 @@ class VkApiService implements SocialApiService {
 	}
 
 	private static User map(Map<String, Object> info) throws NullPointerException {
-		if (!info.containsKey(VKUserFields.UID.toString()) || !info.containsKey(VKUserFields.FIRST_NAME.toString())) {
-			throw new NullPointerException("User uid is empty.");
-		}
-		
 		User user = new User(String.valueOf(info.get(VKUserFields.UID.toString())), String.valueOf(info.get(VKUserFields.FIRST_NAME.toString())));
 		user.setSex(User.Sex.forCode((Integer) info.get(VKUserFields.SEX.toString())));
 		
