@@ -38,9 +38,6 @@ public class SurveyResultController {
 		if (results.isSurveyCompleted()) {
 			ModelAndView modelAndView = new ModelAndView("survey-completed");
 			
-//			modelAndView.addObject("positiveAnswers", resultsService.getResults(true));
-//			modelAndView.addObject("negativeAnswers", resultsService.getResults(false));
-			
 			modelAndView.addObject("me", socialApiService.getUser(results.getMyId()));
 			modelAndView.addObject("partner", socialApiService.getUser(results.getPartnerId()));
 			
