@@ -29,13 +29,12 @@ public class User {
 		}
 	}
 	
-	public User(String id, String name) {
-		if (id == null || name == null) {
+	public User(String id) {
+		if (id == null) {
 			throw new NullPointerException("Either ID or name is null");
 		}
 		
 		this.id = id;
-		this.name = name;
 	}
 
 	public String getId() {

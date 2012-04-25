@@ -21,7 +21,7 @@ import com.couple.services.external.User;
 import com.couple.services.external.User.Sex;
 
 public class ChoosePartnerControllerTest {
-	private static final User testUser = new User("id", "");
+	private static final User testUser = new User("id");
 	private static final List<Map<String, Object>> testFriends = Collections.emptyList();
 	
 	private final SocialApiService socialApiService = mock(SocialApiService.class);
