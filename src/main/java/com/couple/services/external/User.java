@@ -18,10 +18,6 @@ public class User {
 			this.code = code;
 		}
 		
-		public int getCode() {
-			return code;
-		}
-		
 		static Sex forCode(int code) {
 			for(Sex sex: values()) {
 				if (sex.code == code) {
