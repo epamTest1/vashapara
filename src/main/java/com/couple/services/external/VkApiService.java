@@ -49,14 +49,11 @@ class VkApiService implements SocialApiService {
 	
 	@Override
 	public List<Map<String, Object>> getFriends(String userId, Sex sex) throws SocialApiException {
-		Map<String, String> params = new TreeMap<String, String>();
-		params.put("api_id", API_ID);
-		params.put("method", "friends.get");
-		params.put("v", API_VER);
-		params.put("format", API_FORMAT);
+		Map<String, String> params = buildRequestParams("friends.get");
 		params.put("uid", userId);
 		params.put("fields", VKUserFields.getList());
 		params.put("count", Integer.toString(MAX_FRIENDS_TO_RECEIVE_FROM_API));
+		
 		
 		List<Map<String, Object>> result = new LinkedList<Map<String, Object>>();
 		List<Map<String, Object>> response = new ArrayList<Map<String, Object>>();
@@ -86,12 +83,8 @@ class VkApiService implements SocialApiService {
 	}
 	
 	private Map<String, Object> getUserInfo(String uid) throws IOException {
-		Map<String, String> params = new TreeMap<String, String>();
-		params.put("api_id", API_ID);
-		params.put("method", "users.get");
-		params.put("format", API_FORMAT);
+		Map<String, String> params = buildRequestParams("users.get");
 		params.put("fields", VKUserFields.getList());
-		params.put("v", API_VER);
 		params.put("uids", uid);
 		
 		List<Map<String, Object>> response = performRequest(params);
@@ -100,6 +93,16 @@ class VkApiService implements SocialApiService {
 		} else {
 			return (Map<String, Object>) response.get(0);
 		}
+	}
+	
+	private Map<String, String> buildRequestParams(String method) {
+		Map<String, String> params = new TreeMap<String, String>();
+		params.put("api_id", API_ID);
+		params.put("method", method);
+		params.put("v", API_VER);
+		params.put("format", API_FORMAT);
+		
+		return params;
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -120,7 +123,6 @@ class VkApiService implements SocialApiService {
 			return "";
 		}
 	}
-	
 	
 	private String prepareQueryString(Map<String, String> params) throws UnsupportedEncodingException {
 		StringBuilder data = new StringBuilder();
