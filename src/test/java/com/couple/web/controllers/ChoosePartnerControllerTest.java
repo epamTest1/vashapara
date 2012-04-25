@@ -17,8 +17,8 @@ import org.junit.Test;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.couple.services.external.SocialApiService;
-import com.couple.web.dto.User;
-import com.couple.web.dto.User.Sex;
+import com.couple.services.external.User;
+import com.couple.services.external.User.Sex;
 
 public class ChoosePartnerControllerTest {
 	private static final User testUser = new User("id", "", "");

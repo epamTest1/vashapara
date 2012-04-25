@@ -1,6 +1,7 @@
-package com.couple.web.dto;
+package com.couple.services.external;
 
 import java.util.Map;
+
 
 public class User {
 	private static final String NO_NAME = "anonimous";

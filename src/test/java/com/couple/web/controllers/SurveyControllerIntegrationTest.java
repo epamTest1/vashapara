@@ -27,8 +27,8 @@ import com.couple.model.Category;
 import com.couple.services.CategoryService;
 import com.couple.services.ResultsService;
 import com.couple.services.external.SocialApiService;
+import com.couple.services.external.User;
 import com.couple.web.dto.SurveyAnswers;
-import com.couple.web.dto.User;
 
 public class SurveyControllerIntegrationTest {
 	private static final String MY_ID = "1";

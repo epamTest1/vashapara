@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.couple.services.external.SocialApiService;
-import com.couple.web.dto.User;
-import com.couple.web.dto.User.Sex;
+import com.couple.services.external.User;
+import com.couple.services.external.User.Sex;
 
 @Controller
 @RequestMapping("/choose-partner")

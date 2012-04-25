@@ -15,8 +15,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.couple.services.ResultsService;
 import com.couple.services.external.SocialApiService;
+import com.couple.services.external.User;
 import com.couple.web.dto.SurveyResults;
-import com.couple.web.dto.User;
 
 public class SurveyResultControllerTest {
 	private static final long TEST_COUPLE_ID = 1;

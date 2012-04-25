@@ -1,4 +1,4 @@
-package com.couple.web.dto;
+package com.couple.services.external;
 
 import org.springframework.util.StringUtils;
 

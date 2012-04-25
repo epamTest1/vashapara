@@ -19,9 +19,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
 import org.codehaus.jackson.map.ObjectMapper;
 
-import com.couple.web.dto.User;
-import com.couple.web.dto.VKUserFields;
-import com.couple.web.dto.User.Sex;
+import com.couple.services.external.User.Sex;
 
 
 class VkApiService implements SocialApiService {
