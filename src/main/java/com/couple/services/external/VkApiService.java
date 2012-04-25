@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -30,13 +31,17 @@ class VkApiService implements SocialApiService {
 	
 	private final int MAX_FRIENDS_TO_RECEIVE_FROM_API = 20;
 	
-	private final HttpClient httpclient = new DefaultHttpClient();
+	private HttpClient httpclient = new DefaultHttpClient();
 	private final String apiUrl;
 	
 	public VkApiService(String apiUrl) {
 		this.apiUrl = apiUrl;
 	}
-
+	
+	void setHttpClient(HttpClient httpclient) {
+		this.httpclient = httpclient;
+	}
+	
 	@Override
 	public User getUser(String userId) throws SocialApiException {
 		try {
@@ -105,7 +110,8 @@ class VkApiService implements SocialApiService {
 		
 		String jsonString = performRequest(params);
 		Map<String, Object> responseList = mapper.readValue(jsonString, Map.class);
-		return (List<Map<String, Object>>) responseList.get("response");
+		List<Map<String, Object>> response = (List<Map<String, Object>>) responseList.get("response");
+		return response != null ? response : Collections.<Map<String, Object>>emptyList();
 	}
 	
 	private String performRequest(Map<String, String> params) throws IOException {
@@ -144,7 +150,9 @@ class VkApiService implements SocialApiService {
 		User user = new User(String.valueOf(info.get(VKUserFields.UID.toString())));
 		user.setFirstName((String) info.get(VKUserFields.FIRST_NAME.toString()));
 		user.setLastName((String) info.get(VKUserFields.LAST_NAME.toString()));
-		user.setSex(User.Sex.forCode((Integer) info.get(VKUserFields.SEX.toString())));
+		if (info.containsKey(VKUserFields.SEX.toString())) {
+			user.setSex(User.Sex.forCode((Integer) info.get(VKUserFields.SEX.toString())));
+		}
 		user.setBigPhotoUrl((String) info.get(VKUserFields.PHOTO_BIG.toString()));
 		user.setMediumPhotoUrl((String) info.get(VKUserFields.PHOTO_MEDIUM.toString()));
 		user.setSmallPhotoUrl((String) info.get(VKUserFields.PHOTO.toString()));
