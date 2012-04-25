@@ -33,7 +33,6 @@ class VkApiService implements SocialApiService {
 	
 	private final HttpClient httpclient = new DefaultHttpClient();
 	private final String apiUrl;
-	static final String NO_NAME = "anonimous";
 	
 	public VkApiService(String apiUrl) {
 		this.apiUrl = apiUrl;
@@ -146,27 +145,21 @@ class VkApiService implements SocialApiService {
 	}
 
 	private static User map(Map<String, Object> info) throws NullPointerException {
-		String name = VkApiService.NO_NAME;
-		
-		if (!info.containsKey(VKUserFields.uid.toString())) {
+		if (!info.containsKey(VKUserFields.uid.name()) || !info.containsKey(VKUserFields.first_name.name())) {
 			throw new NullPointerException("User uid is empty.");
 		}
 		
-		if (info.containsKey(VKUserFields.first_name.toString()) && !info.get(VKUserFields.first_name.toString()).toString().isEmpty()) {
-			name = info.get(VKUserFields.first_name.toString()).toString();
-		}
+		User user = new User(String.valueOf(info.get(VKUserFields.uid.name())), String.valueOf(info.get(VKUserFields.first_name.name())));
+		user.setSex(User.Sex.forCode((Integer) info.get(VKUserFields.sex.name())));
 		
 		String photoUrl = null;
-		if (info.containsKey(VKUserFields.photo_big.toString()) && !info.get(VKUserFields.photo_big.toString()).toString().isEmpty()) {
-			photoUrl = info.get(VKUserFields.photo_big.toString()).toString();
-		} else if (info.containsKey(VKUserFields.photo_medium.toString()) && !info.get(VKUserFields.photo_medium.toString()).toString().isEmpty()) {
-			photoUrl = info.get(VKUserFields.photo_medium.toString()).toString();
-		} else if (info.containsKey(VKUserFields.photo.toString()) && !info.get(VKUserFields.photo.toString()).toString().isEmpty()) {
-			photoUrl = info.get(VKUserFields.photo.toString()).toString();
+		if (info.containsKey(VKUserFields.photo_big.name()) && !info.get(VKUserFields.photo_big.name()).toString().isEmpty()) {
+			photoUrl = info.get(VKUserFields.photo_big.name()).toString();
+		} else if (info.containsKey(VKUserFields.photo_medium.name()) && !info.get(VKUserFields.photo_medium.name()).toString().isEmpty()) {
+			photoUrl = info.get(VKUserFields.photo_medium.name()).toString();
+		} else if (info.containsKey(VKUserFields.photo.name()) && !info.get(VKUserFields.photo.name()).toString().isEmpty()) {
+			photoUrl = info.get(VKUserFields.photo.name()).toString();
 		}
-		
-		User user = new User(String.valueOf(info.get(VKUserFields.uid.toString())), name);
-		user.setSex(User.Sex.forCode((Integer) info.get(VKUserFields.sex.toString())));
 		user.setImageUrl(photoUrl);
 		
 		return user;
