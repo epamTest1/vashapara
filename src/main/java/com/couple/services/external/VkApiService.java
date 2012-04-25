@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -41,7 +40,16 @@ class VkApiService implements SocialApiService {
 	@Override
 	public User getUser(String userId) throws SocialApiException {
 		try {
-			return VkApiService.map(getUserInfo(userId));
+			Map<String, String> params = buildRequestParams("users.get");
+			params.put("fields", VKUserFields.getList());
+			params.put("uids", userId);
+			
+			List<Map<String, Object>> response = performJsonRequest(params);
+			if (!response.isEmpty()) {
+				return VkApiService.map((Map<String, Object>) response.get(0));
+			} else {
+				return null;
+			}
 		} catch (IOException e) {
 			throw new SocialApiException(e);
 		}
@@ -54,7 +62,6 @@ class VkApiService implements SocialApiService {
 		params.put("fields", VKUserFields.getList());
 		params.put("count", Integer.toString(MAX_FRIENDS_TO_RECEIVE_FROM_API));
 		
-		
 		List<Map<String, Object>> result = new LinkedList<Map<String, Object>>();
 		List<Map<String, Object>> response = new ArrayList<Map<String, Object>>();
 		
@@ -63,7 +70,7 @@ class VkApiService implements SocialApiService {
 			do {
 				params.put("offset", Integer.toString(offset));
 				
-				response = performRequest(params);
+				response = performJsonRequest(params);
 				
 				for (Map<String, Object> friendMap : response) {
 					User friend = VkApiService.map(friendMap);
@@ -82,19 +89,6 @@ class VkApiService implements SocialApiService {
 		return result;
 	}
 	
-	private Map<String, Object> getUserInfo(String uid) throws IOException {
-		Map<String, String> params = buildRequestParams("users.get");
-		params.put("fields", VKUserFields.getList());
-		params.put("uids", uid);
-		
-		List<Map<String, Object>> response = performRequest(params);
-		if (response.isEmpty()) {
-			return Collections.emptyMap();
-		} else {
-			return (Map<String, Object>) response.get(0);
-		}
-	}
-	
 	private Map<String, String> buildRequestParams(String method) {
 		Map<String, String> params = new TreeMap<String, String>();
 		params.put("api_id", API_ID);
@@ -106,13 +100,13 @@ class VkApiService implements SocialApiService {
 	}
 	
 	@SuppressWarnings("unchecked")
-	private List<Map<String, Object>> performRequest(Map<String, String> params) throws IOException {
+	private List<Map<String, Object>> performJsonRequest(Map<String, String> params) throws IOException {
 		ObjectMapper mapper = new ObjectMapper();
-		Map<String, Object> friendsList = mapper.readValue(request(params), Map.class);
+		Map<String, Object> friendsList = mapper.readValue(performRequest(params), Map.class);
 		return (List<Map<String, Object>>) friendsList.get("response");
 	}
 	
-	private String request(Map<String, String> params) throws IOException {
+	private String performRequest(Map<String, String> params) throws IOException {
 		String requestURL = apiUrl + "?" + prepareQueryString(params);
 		
 		HttpResponse response = httpclient.execute(new HttpGet(requestURL));
