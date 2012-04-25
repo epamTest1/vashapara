@@ -21,8 +21,8 @@ import com.couple.web.dto.SurveyResults;
 public class SurveyResultControllerTest {
 	private static final long TEST_COUPLE_ID = 1;
 	private static final String TEST_CURRENT_USER_ID = "1111";
-	private static final User me = new User("me", "test", "");
-	private static final User partner = new User("partner", "test", "");
+	private static final User me = new User("me", "test");
+	private static final User partner = new User("partner", "test");
 	
 	private ResultsService resultsService = mock(ResultsService.class);
 	private SocialApiService socialApiService = mock(SocialApiService.class);

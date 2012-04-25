@@ -51,8 +51,8 @@ public class SurveyControllerTest {
 	@Test
 	public void shouldFillModelForSurveyForm() {
 		List<Category> categories = Arrays.asList(new Category("dummy"));
-		User me = new User(MY_ID, "dummy", "");
-		User partner = new User(PARTNER_ID, "dummy", "");
+		User me = new User(MY_ID, "dummy");
+		User partner = new User(PARTNER_ID, "dummy");
 
 		when(categoryService.getCategories()).thenReturn(categories);
 		when(socialApiService.getUser(MY_ID)).thenReturn(me);

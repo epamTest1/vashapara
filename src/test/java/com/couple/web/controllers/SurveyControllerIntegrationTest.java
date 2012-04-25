@@ -58,8 +58,8 @@ public class SurveyControllerIntegrationTest {
 	@Ignore("This test is an example of spting-mvc-test")
 	public void shouldFillModelForSurveyForm() throws Exception {
 		List<Category> categories = Arrays.asList(new Category("dummy"));
-		User me = new User(MY_ID, "dummy", "");
-		User partner = new User(PARTNER_ID, "dummy", "");
+		User me = new User(MY_ID, "dummy");
+		User partner = new User(PARTNER_ID, "dummy");
 
 		when(categoryService.getCategories()).thenReturn(categories);
 		when(socialApiService.getUser(MY_ID)).thenReturn(me);
