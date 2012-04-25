@@ -142,7 +142,8 @@ class VkApiService implements SocialApiService {
 
 	private static User map(Map<String, Object> info) {
 		User user = new User(String.valueOf(info.get(VKUserFields.UID.toString())));
-		user.setName(String.valueOf(info.get(VKUserFields.FIRST_NAME.toString())));
+		user.setFirstName(String.valueOf(info.get(VKUserFields.FIRST_NAME.toString())));
+		user.setLastName(String.valueOf(info.get(VKUserFields.LAST_NAME.toString())));
 		user.setSex(User.Sex.forCode((Integer) info.get(VKUserFields.SEX.toString())));
 		
 		String photoUrl = null;

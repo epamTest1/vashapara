@@ -32,18 +32,18 @@
 <div class="main span10" role="main">
 	<ul class="thumbnails row">
 		<li class="span3">
-			<h2 class="user-name">${me.name}</h2>
+			<h2 class="user-name">${me.firstName}</h2>
 			<a href="#" class="thumbnail">
-				<img width="200" src="${me.imageUrl}" alt="${me.name}">
+				<img width="200" src="${me.imageUrl}" alt="${me.firstName}">
 			</a>
 		</li>
 
 		<li class="span4"></li>
 
 		<li class="span3">
-			<h2 class="user-name">${partner.name}</h2>
+			<h2 class="user-name">${partner.firstName}</h2>
 			<a href="#" class="thumbnail">
-				<img width="200" src="${partner.imageUrl}" alt="${partner.name}">
+				<img width="200" src="${partner.imageUrl}" alt="${partner.firstName}">
 			</a>
 		</li>
 	</ul>
