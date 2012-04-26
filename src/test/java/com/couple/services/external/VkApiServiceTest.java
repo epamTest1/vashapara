@@ -40,7 +40,7 @@ public class VkApiServiceTest {
 	}
 	
 	@Test
-	public void shouldReadUserFromREsponse() throws IOException {
+	public void shouldReadUserFromResponse() throws IOException {
 		String response = "{" +
 			"\"response\": [" +
 				"{" +
