@@ -32,6 +32,7 @@ class VkApiService implements SocialApiService {
 	private final int MAX_FRIENDS_TO_RECEIVE_FROM_API = 20;
 	
 	private HttpClient httpclient = new DefaultHttpClient();
+	private ObjectMapper mapper = new ObjectMapper();
 	private final String apiUrl;
 	
 	public VkApiService(String apiUrl) {
@@ -106,8 +107,6 @@ class VkApiService implements SocialApiService {
 	
 	@SuppressWarnings("unchecked")
 	private List<Map<String, Object>> performJsonRequest(Map<String, String> params) throws IOException {
-		ObjectMapper mapper = new ObjectMapper();
-		
 		String jsonString = performRequest(params);
 		Map<String, Object> responseList = mapper.readValue(jsonString, Map.class);
 		List<Map<String, Object>> response = (List<Map<String, Object>>) responseList.get("response");
