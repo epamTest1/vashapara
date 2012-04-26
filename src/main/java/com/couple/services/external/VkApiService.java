@@ -52,7 +52,7 @@ class VkApiService implements SocialApiService {
 			
 			List<Map<String, Object>> response = performJsonRequest(params);
 			if (!response.isEmpty()) {
-				return VkApiService.map((Map<String, Object>) response.get(0));
+				return VkApiService.map(response.get(0));
 			} else {
 				return null;
 			}
