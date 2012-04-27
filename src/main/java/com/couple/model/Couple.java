@@ -1,26 +1,26 @@
 package com.couple.model;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
 public class Couple {
 	private Long id;
-	private Collection<String> partnerIds;
 	private Integer score;
-	
 	private Map<String, Map<Long, AnswerOption>> answers = new HashMap<String, Map<Long,AnswerOption>>();
 	
 	protected Couple() {
 	}
 	
 	public Couple(String firstPartnerId, String secondPartnerId) {
-		partnerIds = Arrays.asList(firstPartnerId, secondPartnerId);
 		answers.put(firstPartnerId, new HashMap<Long, AnswerOption>());
 		answers.put(secondPartnerId, new HashMap<Long, AnswerOption>());
+		if (answers.size() != 2) {
+			throw new IllegalArgumentException("IDs of partners can not be the same");
+		}
 	}
 	
 	public Long getId() {
@@ -32,7 +32,7 @@ public class Couple {
 	}
 	
 	public Collection<String> getPartnerIds() {
-		return partnerIds;
+		return Collections.unmodifiableCollection(answers.keySet());
 	}
 
 	public Integer getScore() {
@@ -44,7 +44,7 @@ public class Couple {
 	}
 
 	public Map<Long, AnswerOption> getAnswersFor(String partnerId) {
-		return null;
+		return Collections.unmodifiableMap(answers.get(partnerId));
 	}
 
 	public void setAnswer(String partnerId, long questionId, AnswerOption answer) {
