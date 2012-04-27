@@ -14,9 +14,4 @@ enum VKUserFields {
 	public static String getList() {
 		return StringUtils.arrayToCommaDelimitedString(VKUserFields.values());
 	}
-	
-	@Override
-	public String toString() {
-		return super.name().toLowerCase();
-	}
 }

@@ -3,7 +3,6 @@ package com.couple.services.external;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -18,6 +17,7 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
 import org.codehaus.jackson.map.ObjectMapper;
+import org.codehaus.jackson.type.JavaType;
 
 import com.couple.services.external.User.Sex;
 
@@ -50,9 +50,9 @@ class VkApiService implements SocialApiService {
 			params.put("fields", VKUserFields.getList());
 			params.put("uids", userId);
 			
-			List<Map<String, Object>> response = performJsonRequest(params);
+			List<User> response = performJsonRequest(params, User.class);
 			if (!response.isEmpty()) {
-				return VkApiService.map(response.get(0));
+				return response.get(0);
 			} else {
 				return null;
 			}
@@ -69,25 +69,22 @@ class VkApiService implements SocialApiService {
 		params.put("count", Integer.toString(MAX_FRIENDS_TO_RECEIVE_FROM_API));
 		
 		List<User> result = new LinkedList<User>();
-		List<Map<String, Object>> response = new ArrayList<Map<String, Object>>();
 		
+		List<User> usersResponse = null;
 		int offset = 0;
 		try {
 			do {
 				params.put("offset", Integer.toString(offset));
 				
-				response = performJsonRequest(params);
-				
-				for (Map<String, Object> friendMap : response) {
-					User friend = VkApiService.map(friendMap);
-					
+				usersResponse = performJsonRequest(params, User.class);
+				for(User friend: usersResponse) {
 					if (friend.getSex() == sex || friend.getSex() == Sex.NOT_SET || sex == Sex.NOT_SET) {
 						result.add(friend);
 					}
 				}
 				
 				offset += MAX_FRIENDS_TO_RECEIVE_FROM_API;
-			} while (! response.isEmpty());
+			} while (! usersResponse.isEmpty());
 		} catch (IOException e) {
 			throw new SocialApiException(e);
 		}
@@ -105,12 +102,14 @@ class VkApiService implements SocialApiService {
 		return params;
 	}
 	
-	@SuppressWarnings("unchecked")
-	private List<Map<String, Object>> performJsonRequest(Map<String, String> params) throws IOException {
+	private <T> List<T> performJsonRequest(Map<String, String> params, Class<T> type) throws IOException {
 		String jsonString = performRequest(params);
-		Map<String, Object> responseList = mapper.readValue(jsonString, Map.class);
-		List<Map<String, Object>> response = (List<Map<String, Object>>) responseList.get("response");
-		return response != null ? response : Collections.<Map<String, Object>>emptyList();
+		
+		JavaType responseType = mapper.getTypeFactory().constructParametricType(ResponseWrapper.class, type);
+		ResponseWrapper<T> responseList = mapper.readValue(jsonString, responseType);
+		
+		List<T> response = responseList.getResponse();
+		return response != null ? response : Collections.<T>emptyList();
 	}
 	
 	private String performRequest(Map<String, String> params) throws IOException {
@@ -143,19 +142,5 @@ class VkApiService implements SocialApiService {
 		data.append(API_SECRET);
 		
 		return DigestUtils.md5Hex(data.toString());
-	}
-
-	private static User map(Map<String, Object> info) {
-		User user = new User(String.valueOf(info.get(VKUserFields.UID.toString())));
-		user.setFirstName((String) info.get(VKUserFields.FIRST_NAME.toString()));
-		user.setLastName((String) info.get(VKUserFields.LAST_NAME.toString()));
-		if (info.containsKey(VKUserFields.SEX.toString())) {
-			user.setSex(User.Sex.forCode((Integer) info.get(VKUserFields.SEX.toString())));
-		}
-		user.setBigPhotoUrl((String) info.get(VKUserFields.PHOTO_BIG.toString()));
-		user.setMediumPhotoUrl((String) info.get(VKUserFields.PHOTO_MEDIUM.toString()));
-		user.setSmallPhotoUrl((String) info.get(VKUserFields.PHOTO.toString()));
-		
-		return user;
 	}
 }

@@ -1,38 +1,34 @@
 package com.couple.services.external;
 
+import org.codehaus.jackson.annotate.JsonProperty;
+import org.codehaus.jackson.map.annotate.JsonDeserialize;
+
 
 public class User {
 	private String id;
-	private String firstName;
-	private String lastName;
-	private String bigPhotoUrl;
-	private String mediumPhotoUrl;
-	private String smallPhotoUrl;
-	private Sex sex = Sex.NOT_SET;
-
-	public enum Sex {
-		NOT_SET(0),
-		FEMALE(1),
-		MALE(2);
-		
-		private final int code;
-		
-		private Sex(int code) {
-			this.code = code;
-		}
-		
-		static Sex forCode(int code) {
-			for(Sex sex: values()) {
-				if (sex.code == code) {
-					return sex;
-				}
-			}
-			
-			throw new IllegalArgumentException("Unknown sex code");
-		}
-	}
 	
-	public User(String id) {
+	@JsonProperty("first_name")
+	private String firstName;
+	
+	@JsonProperty("last_name")
+	private String lastName;
+	
+	@JsonProperty("photo_big")
+	private String bigPhotoUrl;
+	
+	@JsonProperty("photo_medium")
+	private String mediumPhotoUrl;
+	
+	@JsonProperty("photo")
+	private String smallPhotoUrl;
+	
+	@JsonProperty("sex")
+	private Sex sex = Sex.NOT_SET;
+	
+	@JsonDeserialize(using = SexDeserializer.class)
+	public enum Sex {NOT_SET, FEMALE, MALE}
+	
+	public User(@JsonProperty("uid") String id) {
 		if (id == null) {
 			throw new NullPointerException("Either ID or name is null");
 		}
