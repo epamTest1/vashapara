@@ -36,8 +36,18 @@ public class CoupleTest {
 	}
 	
 	@Test
+	public void shouldReturnNullForScoreIfDataEmpty() {
+		Couple couple = new Couple(FIRST_PARTNER_ID, SECOND_PARTNER_ID);
+		
+		couple.calculateScore();
+		
+		assertNull(couple.getScore());
+	}
+	
+	@Test
 	public void shouldReturnNullForScoreIfDataNotSufficient() {
 		Couple couple = new Couple(FIRST_PARTNER_ID, SECOND_PARTNER_ID);
+		couple.setAnswer(FIRST_PARTNER_ID, 1, AnswerOption.NEVER);
 		
 		couple.calculateScore();
 		

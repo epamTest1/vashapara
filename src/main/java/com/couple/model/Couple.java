@@ -56,7 +56,7 @@ public class Couple {
 		Map<Long, AnswerOption> answers1 = answers.get(it.next());
 		Map<Long, AnswerOption> answers2 = answers.get(it.next());
 		
-		if (!answers1.isEmpty() || !answers2.isEmpty()) {
+		if (!answers1.isEmpty() && !answers2.isEmpty()) {
 			int sum = 0;
 			
 			Collection<Long> commonKeys = new ArrayList<Long>(answers1.keySet());
