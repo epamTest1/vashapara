@@ -42,13 +42,17 @@ public class Couple {
 	public void setScore(int score) {
 		this.score = score;
 	}
-
-	public Map<Long, AnswerOption> getAnswersFor(String partnerId) {
-		return Collections.unmodifiableMap(answers.get(partnerId));
+	
+	public boolean hasAnswersFor(String partnerId) {
+		return ! answers.get(partnerId).isEmpty();
 	}
-
+	
 	public void setAnswer(String partnerId, long questionId, AnswerOption answer) {
 		answers.get(partnerId).put(questionId, answer);
+	}
+	
+	public AnswerOption getAnswer(String partnerId, long questionId) {
+		return answers.get(partnerId).get(questionId);
 	}
 
 	public void calculateScore() {

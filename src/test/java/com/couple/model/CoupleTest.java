@@ -30,7 +30,7 @@ public class CoupleTest {
 		Couple couple = new Couple(FIRST_PARTNER_ID, SECOND_PARTNER_ID);
 		couple.setAnswer(FIRST_PARTNER_ID, 1, AnswerOption.NEVER);
 		
-		AnswerOption answer = couple.getAnswersFor(FIRST_PARTNER_ID).get(1L);
+		AnswerOption answer = couple.getAnswer(FIRST_PARTNER_ID, 1L);
 		
 		assertEquals(AnswerOption.NEVER, answer);
 	}

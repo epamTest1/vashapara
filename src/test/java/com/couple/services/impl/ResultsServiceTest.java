@@ -8,7 +8,6 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.Arrays;
-import java.util.Collections;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -38,7 +37,6 @@ public class ResultsServiceTest {
 		when(couple.getId()).thenReturn(TEST_COUPLE_ID);
 		when(couple.getPartnerIds()).thenReturn(Arrays.asList(PARTNER_ID, CURRENT_USER_ID));
 		when(couple.getScore()).thenReturn(42);
-		when(couple.getAnswersFor(surveyAnswers.getUserId())).thenReturn(Collections.<Long, AnswerOption>emptyMap());
 		
 		when(coupleDao.find(TEST_COUPLE_ID)).thenReturn(couple);
 		when(coupleDao.findForPartners(surveyAnswers.getUserId(), surveyAnswers.getPartnerId())).thenReturn(couple);
@@ -96,7 +94,7 @@ public class ResultsServiceTest {
 	
 	@Test(expected = RuntimeException.class)
 	public void shouldFailIfSurveyWasAlreadySubmitted() {
-		when(couple.getAnswersFor(surveyAnswers.getUserId())).thenReturn(Collections.singletonMap(1L, AnswerOption.ALWAYS));
+		when(couple.hasAnswersFor(surveyAnswers.getUserId())).thenReturn(true);
 		
 		resultsService.saveAnswers(surveyAnswers);
 	}
