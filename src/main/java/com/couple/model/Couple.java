@@ -7,18 +7,39 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.MapKey;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+
+@Entity
+@Table(name = "COUPLES")
 public class Couple {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "ID")
 	private Long id;
+	
+	@Column(name = "SCORE")
 	private Integer score;
-	private Map<String, Map<Long, AnswerOption>> answers = new HashMap<String, Map<Long,AnswerOption>>();
+	
+	@OneToMany(mappedBy = "couple", cascade = CascadeType.PERSIST)
+	@MapKey(name = "userId")
+	private Map<String, Partner> partners = new HashMap<String, Partner>();
 	
 	protected Couple() {
 	}
 	
 	public Couple(String firstPartnerId, String secondPartnerId) {
-		answers.put(firstPartnerId, new HashMap<Long, AnswerOption>());
-		answers.put(secondPartnerId, new HashMap<Long, AnswerOption>());
-		if (answers.size() != 2) {
+		partners.put(firstPartnerId, new Partner(this, firstPartnerId));
+		partners.put(secondPartnerId, new Partner(this, secondPartnerId));
+		if (partners.size() != 2) {
 			throw new IllegalArgumentException("IDs of partners can not be the same");
 		}
 	}
@@ -32,7 +53,7 @@ public class Couple {
 	}
 	
 	public Collection<String> getPartnerIds() {
-		return Collections.unmodifiableCollection(answers.keySet());
+		return Collections.unmodifiableCollection(partners.keySet());
 	}
 
 	public Integer getScore() {
@@ -44,29 +65,29 @@ public class Couple {
 	}
 	
 	public boolean hasAnswersFor(String partnerId) {
-		return ! answers.get(partnerId).isEmpty();
+		return partners.get(partnerId).hasAnswers();
 	}
 	
 	public void setAnswer(String partnerId, long questionId, AnswerOption answer) {
-		answers.get(partnerId).put(questionId, answer);
+		partners.get(partnerId).setAnswer(questionId, answer);
 	}
 	
 	public AnswerOption getAnswer(String partnerId, long questionId) {
-		return answers.get(partnerId).get(questionId);
+		return partners.get(partnerId).getAnswerFor(questionId);
 	}
 
 	public void calculateScore() {
-		Iterator<String> it = answers.keySet().iterator();
-		Map<Long, AnswerOption> answers1 = answers.get(it.next());
-		Map<Long, AnswerOption> answers2 = answers.get(it.next());
+		Iterator<Partner> iter = partners.values().iterator();
+		Partner partner1 = iter.next();
+		Partner partner2 = iter.next();
 		
-		if (!answers1.isEmpty() && !answers2.isEmpty()) {
+		if (partner1.hasAnswers() && partner2.hasAnswers()) {
 			int sum = 0;
 			
-			Collection<Long> commonKeys = new ArrayList<Long>(answers1.keySet());
-			commonKeys.retainAll(answers2.keySet());
+			Collection<Long> commonKeys = new ArrayList<Long>(partner1.getAnsweredQuestions());
+			commonKeys.retainAll(partner2.getAnsweredQuestions());
 			for(Long questionId: commonKeys) {
-				sum += 100 - Math.abs(answers1.get(questionId).getWeight() + answers2.get(questionId).getWeight() - 100);
+				sum += 100 - Math.abs(partner1.getAnswerFor(questionId).getWeight() + partner2.getAnswerFor(questionId).getWeight() - 100);
 			}
 			if (commonKeys.size() > 0) {
 				this.score = sum / commonKeys.size();
